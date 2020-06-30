@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-//Тестовый коммент
 /**
  * Класс хранящий WebDriver. Реализует паттерн Singleton. Настройки Вебдрайвера подгружаются из файла конфигураций
  */

@@ -67,7 +67,7 @@ void inputPosition(String position); // ввести должность
 
 void inputCompanyName(String companyName); //ввести им€ компании
 
-void inputEmail(String email);  // ввести емайл жд€ регистрации
+void inputEmail(String email);  // ввести емайл дл€ регистрации
 
 void inputPhone(String phone); // ввести номер телефона
 
@@ -75,7 +75,7 @@ void inputSite(String site); //введите ваш сайт
 
 void clickFinishRegistration();  //завершить регистрацию 
 
-void logIn();   //¬ойти в зарегестрированный профиль
+void logIn(String email, String password);   //¬ойти в зарегестрированный профиль
 
 void logOut();   //¬ыйти из зарегестрированного профил€ 
  
@@ -94,7 +94,7 @@ void inputEmail(String email);  // ввести емайл дл€ регистрации
 
 void clickFinishRegistration();  //завершить регистрацию 
 
-void logIn();   //¬ойти в зарегестрированный профиль
+void logIn(String email, String password);   //¬ойти в зарегестрированный профиль
 
 void logOut();   //¬ыйти из зарегестрированного профил€ 
 
@@ -175,12 +175,12 @@ void clickGoToListTests();  // перейти к листу тестов
 
 г)OneOffMailPageThroughRequests		    ¬иктор 
 
-String getNewEmailTenMinutes();  //возвращает новый €щик на 10 минут 
+static String getNewEmailTenMinutes();  //возвращает новый €щик на 10 минут 
 
-String getEmail();  // возвращает используемый €щик, или пустую строку если сейчас нет используемого €щика
+static String getEmail();  // возвращает используемый €щик, или пустую строку если сейчас нет используемого €щика
 
-String getPassword(); //возвращает пароль от текущего €щика или пустую строку если сейчас не используемого €щика
+static String getPassword(); //возвращает пароль от текущего €щика или пустую строку если сейчас не используемого €щика
 
-void deleteEmail();  //завершить использование текущего €щика  
+static void deleteEmail();  //завершить использование текущего €щика  
 
 

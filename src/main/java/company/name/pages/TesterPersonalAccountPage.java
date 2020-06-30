@@ -10,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class TesterPersonalAccountPage extends AbstractPage {
     /**
-     * Локаторы поиска на стартовой странице
+     * Локаторы поиска на стартовой странице (testStand)
      */
     @FindBy(id = "header-lk-button")
     private WebElement loginButton;             //Кнопка открытия окна входа

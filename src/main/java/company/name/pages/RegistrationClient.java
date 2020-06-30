@@ -4,16 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-/*
-@author Akmataliev Almaz
-Регистрация клиента
+/**
+ * @author Akmataliev Almaz
+ * Регистрация клиента
  */
-
 public class RegistrationClient extends AbstractPage {
 
     private String testStand;
     private WebDriver driver;
 
+    /**
+     *
+     * @param driver
+     */
     public RegistrationClient(WebDriver driver) {
         super(driver);
         this.testStand = super.testStand;
@@ -62,72 +65,81 @@ public class RegistrationClient extends AbstractPage {
     @FindBy(css = "[ng-tr=\"WHE1.WHE4\"")
     private WebElement inButton;            // кнопка для входа в аккаунт
 
-
     @FindBy(id = "logout")
     private WebElement logout;      //кнопка выхода после успешного входа
 
-    /*
-    нажатие кнопки входа на стартовой странице
+    /**
+     * нажатие кнопки входа на стартовой странице
      */
     public void openPopUp(){
         loginButton.click();
     }
-    /*
-    нажатие кнопки регистрация
+
+    /**
+     * нажатие кнопки регистрация
      */
     public void clickRegistration(){
         startRegistrationButton.click();
     }
-    /*
-    нажатие кнопки "Зарегистрироватся
+
+    /**
+     * нажатие кнопки "Зарегистрироватся
      */
     public void clickRegistrationClient(){
         startRegistrationButton.click();
     }
-    /*
-    Ввод в поле имя
+
+    /**
+     * Ввод в поле имя
      */
     public void inputPersonName(String personName) {
         registrationNameField.sendKeys(personName);
     }
-    /*
-    ввод в поле должность
+
+    /**
+     * ввод в поле должность
      */
     public void inputPosition(String position) {
         registrationPositionField.sendKeys(position);
     }
-    /*
-    ввод в поле имя номпании
+
+    /**
+     * ввод в поле имя номпании
      */
     public void inputCompanyName(String companyName) {
         registrationCompanyField.sendKeys(companyName);
     }
-    /*
-    ввод в поле email
+
+    /**
+     * ввод в поле email
      */
     public void inputEmail(String email) {
         registrationEmailField.sendKeys(email);
     }
-    /*
-    ввод в поле номер
+
+    /**
+     * ввод в поле номер
      */
     public void inputPhone(String phone) {
         registrationPhoneNumberField.sendKeys(phone);
     }
-    /*
-    ввод в поле адресс
+
+    /**
+     * ввод в поле адресс
      */
     public void inputSite(String site) {
         registrationSiteField.sendKeys(site);
     }
-    /*
-    нажатие кнопки регистрация клиента
+
+    /**
+     * нажатие кнопки регистрация клиента
      */
     public void clickFinishRegistration(){
         registrationButton.click();
     }
-    /*
-    авторизация клиента
+
+    /**
+     * авторизация клиента
      */
     public void logIn(String email, String password){
         loginButton.click();
@@ -135,18 +147,25 @@ public class RegistrationClient extends AbstractPage {
         passwordField.sendKeys(password);
         inButton.click();
     }
-    /*
-    выход из аккаунта
+
+    /**
+     * выход из аккаунта
      */
     public void logOut(){
         logout.click();
     }
-    /*
-    открытие тестового стенда
+
+    /**
+     * открытие тестового стенда
      */
     public void openTestStand(){
         driver.get(testStand);
     }
+
+
+    /**
+     * Геттеры для вебэлементов
+     */
 
     public String getTestStand() {
         return testStand;

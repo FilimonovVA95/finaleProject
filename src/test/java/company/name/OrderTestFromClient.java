@@ -11,7 +11,7 @@ import static io.qameta.allure.Allure.step;
 /**
  * Класс теста проверки функционала клиента. Проверяет возможность заказать новый тест
  * @see company.name.pages.ClientOrderTest
- * @Author Филимонов Виктор
+ * @author Филимонов Виктор
  */
 public class OrderTestFromClient {
 
@@ -117,7 +117,6 @@ public class OrderTestFromClient {
     private void openTestStandStep() {
         clientOrderTest.openTestStand();
     }
-
 
     @Step("Войти в профиль клиента")
     private void logInStep() {

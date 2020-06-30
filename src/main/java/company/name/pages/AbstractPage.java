@@ -18,6 +18,10 @@ public abstract class AbstractPage {
      */
     public static String testStand;
 
+    /**
+     * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
+     * @param driver вебдрайвер с которым мы работаем
+     */
     public AbstractPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
 

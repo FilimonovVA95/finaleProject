@@ -3,8 +3,11 @@ package company.name.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ *
+ * @author
+ */
 public class Authentication {
-
 
     @FindBy(id = "header-lk-button")            //кнопка открытия окна авторизации
     private WebElement loginButton;
@@ -21,34 +24,62 @@ public class Authentication {
     @FindBy(id = "logout")                      // Кнопка выйти
     private WebElement clickLogOut;
 
-    /*
-    открыть всплывающее окно входа
+    /**
+     * открыть всплывающее окно входа
      */
     public void openPopUp() {
         loginButton.click();
     }
-    /*
-    ввести email
+
+    /**
+     * ввести email
      */
     public void inputEmail(String email){
         loginFiled.sendKeys(email);
     }
-    /*
-    ввесьи пароль
+
+    /**
+     * ввесьи пароль
      */
     public void inputPassword(String password){
         passwordField.sendKeys(password);
     }
-    /*
-    нажать кнопку войти
+
+    /**
+     * нажать кнопку войти
      */
     public void clickAuthentication(){
         clickLogIn.click();
     }
-    /*
-    нажать кнопку выйти
+
+    /**
+     * нажать кнопку выйти
      */
     public void logOut(){
         clickLogOut.click();
+    }
+
+    /**
+     * Геттеры для вебэлементов
+     */
+
+    public WebElement getLoginButton() {
+        return loginButton;
+    }
+
+    public WebElement getLoginFiled() {
+        return loginFiled;
+    }
+
+    public WebElement getPasswordField() {
+        return passwordField;
+    }
+
+    public WebElement getClickLogIn() {
+        return clickLogIn;
+    }
+
+    public WebElement getClickLogOut() {
+        return clickLogOut;
     }
 }

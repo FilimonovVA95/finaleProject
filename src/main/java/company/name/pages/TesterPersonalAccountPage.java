@@ -30,12 +30,19 @@ public class TesterPersonalAccountPage extends AbstractPage {
     @FindBy(id = "logout")
     private WebElement exitButton;
 
+    /**
+     *
+     * @param driver
+     */
     public TesterPersonalAccountPage(WebDriver driver) {
         super(driver);
         this.testStand = super.testStand;
         this.driver = driver;
     }
 
+    /**
+     *
+     */
     private String testStand;
     private WebDriver driver;
     private final String login = "ribeni5999@aqumail.com";
@@ -62,6 +69,29 @@ public class TesterPersonalAccountPage extends AbstractPage {
      */
     public void logOut(){
         exitButton.click();
+    }
+
+
+    /**
+     * Геттеры для вебэлементов
+     */
+
+    public WebElement getLoginButton() { return loginButton; }
+
+    public WebElement getLoginFiled() {
+        return loginFiled;
+    }
+
+    public WebElement getPasswordField() {
+        return passwordField;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
+
+    public WebElement getExitButton() {
+        return exitButton;
     }
 
 }

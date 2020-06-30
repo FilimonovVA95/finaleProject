@@ -8,12 +8,12 @@ import org.openqa.selenium.support.FindBy;
  * Класс личного кабинета пользователя
  * @author Rostislav Efimov
  */
-
 public class ClientPersonalAccountPage extends AbstractPage {
 
     /**
      * Локаторы поиска на стартовой странице
      */
+
     @FindBy(id = "header-lk-button")
     private WebElement loginButton;             //Кнопка открытия окна входа
 
@@ -45,11 +45,19 @@ public class ClientPersonalAccountPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div/div[2]/div[2]/div[2]/div/div/div[1]/form[2]/div[1]/input")
     private WebElement fioField;               //Поле ФИО пользователя Rost
 
+    /**
+     *
+     * @param driver
+     */
     public ClientPersonalAccountPage(WebDriver driver) {
         super(driver);
         this.testStand = super.testStand;
         this.driver = driver;
     }
+
+    /**
+     *        //по хорошему описание параметров
+     */
     private String testStand;
     private WebDriver driver;
     private final String login = "yedake3020";
@@ -67,16 +75,16 @@ public class ClientPersonalAccountPage extends AbstractPage {
     /**
      * Открыть окошко для входа
      */
-        public void logIn(){
-            loginButton.click();
-            loginFiled.sendKeys(login);
-            passwordField.sendKeys(password);
-            submitButton.click();
-        }
+    public void logIn(){
+        loginButton.click();
+        loginFiled.sendKeys(login);
+        passwordField.sendKeys(password);
+        submitButton.click();
+    }
 
     /**
      * Открыть настройки профиля клиента
-      */
+     */
     public void profilInfoIn(){
         profileSettingsButton.click();
     }
@@ -101,6 +109,7 @@ public class ClientPersonalAccountPage extends AbstractPage {
     public void chekFIO(){
         fioField.getText().equals(FIO);
     }
+
     /**
      * Выйти из личного кабинета клиента
      */
@@ -108,4 +117,44 @@ public class ClientPersonalAccountPage extends AbstractPage {
         exitButton.click();
     }
 
+
+    /**
+     * Геттеры для вебэлементов
+     */
+
+    public WebElement getLoginButton() {
+        return loginButton;
+    }
+
+    public WebElement getLoginFiled() {
+        return loginFiled;
+    }
+
+    public WebElement getPasswordField() {
+        return passwordField;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
+
+    public WebElement getExitButton() {
+        return exitButton;
+    }
+
+    public WebElement getProfileSettingsButton() {
+        return profileSettingsButton;
+    }
+
+    public WebElement getUserNameField() {
+        return userNameField;
+    }
+
+    public WebElement getEmailAddressField() {
+        return emailAddressField;
+    }
+
+    public WebElement getFioField() {
+        return fioField;
+    }
 }

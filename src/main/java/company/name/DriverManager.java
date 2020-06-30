@@ -19,8 +19,8 @@ public class DriverManager {
     private DriverManager(){};
 
     /**
-     * Возвращает вебдрайвер, указанный в документации. Реализует паттерн Singleton.
-     * @return возвращает Вебдрайвер. Всегда один и тот же.
+     * Возвращает вебдрайвер, указанный в документации. Реализует паттерн Singleton
+     * @return возвращает Вебдрайвер. Всегда один и тот же
      */
     public static WebDriver getDriver() {
         if (driver != null) return driver;

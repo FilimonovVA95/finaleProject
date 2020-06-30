@@ -48,7 +48,7 @@ public class TesterPersonalAccountPage extends AbstractPage {
     }
 
     /**
-     * Открыть окошко для входа, регистрации и тд.
+     * Открыть окошко для входа
      */
     public void logIn(){
         loginButton.click();

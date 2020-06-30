@@ -65,7 +65,7 @@ public class ClientPersonalAccountPage extends AbstractPage {
     }
 
     /**
-     * Открыть окошко для входа, регистрации
+     * Открыть окошко для входа
      */
         public void logIn(){
             loginButton.click();

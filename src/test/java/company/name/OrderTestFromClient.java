@@ -1,10 +1,17 @@
 package company.name;
 
-import company.name.pages.*;
+import company.name.pages.ClientOrderTest;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.apache.commons.io.FileUtils;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static io.qameta.allure.Allure.step;
 
@@ -38,7 +45,7 @@ public class OrderTestFromClient {
 
         openTestStandStep();
         step("Проверяем активность кнопки \"Войти\"", () -> {
-            Assert.assertTrue(clientOrderTest.  .isEnabled(), "Open test stand exception");
+            Assert.assertTrue( clientOrderTest.   .isEnabled(), "Open test stand exception");
         });
 
         logInStep();
@@ -186,6 +193,21 @@ public class OrderTestFromClient {
     @Step("Нажать кнопку \"Выход\"")
     private void logoutStep() {
         clientOrderTest.logout();
+    }
+
+    /**
+     * Метод для получения скриншота и сохранения его в папке creenShots
+     */
+    private void screenShotStep() {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File screen = ts.getScreenshotAs(OutputType.FILE);
+        String screenName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString();
+        try {
+            FileUtils.copyFile(screen, new File("./ScreenShots/"+screenName+"Screenshot.png"));
+        } catch (IOException e) {
+            System.out.println("Exception while taking ScreenShot "+e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

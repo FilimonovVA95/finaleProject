@@ -8,10 +8,10 @@ import org.openqa.selenium.WebDriver;
  *
  * @author
  */
-public class RegistrationClientTest {
-    final String newEmailTenMinutes = OneOffMailPageThroughRequests.getNewEmail();
-    final String newPassword = OneOffMailPageThroughRequests.getPassword();
-
-    WebDriver driver = DriverManager.getDriver();
-    RegistrationClient registrationClient = new RegistrationClient(driver);
-}
+//public class RegistrationClientTest {
+//    final String newEmailTenMinutes = OneOffMailPageThroughRequests.getNewEmail();
+//    final String newPassword = OneOffMailPageThroughRequests.getPassword();
+//
+//    WebDriver driver = DriverManager.getDriver();
+//    RegistrationClient registrationClient = new RegistrationClient(driver);
+//}

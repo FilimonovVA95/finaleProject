@@ -1,192 +1,197 @@
-����� 
-1) ����������� �������
-
-2) ����������� �������
-3) �������� ������� ������� 
-
-4) �������� ����� ���� ���� �������
+﻿Тесты 
+1) Регистрация клиента
+2) Авторизация клиента
+3) Проверка профиля клиента 
+4) Заказать некий свой тест создать 
 
 
-����������
+Обязаности
+1) Требования 
+Все делают по своему варианту требований.         дедлайн (до 30.06.20)
 
+2) Test Case 
+Все делают свой вариант  			дедлай (до 30,06,20)
 
-1) ����������
-��� ������ �� ������ �������� ����������.         ������� (�� 30.06.20)
-
-
-
-2) Test Case
-��� ������ ���� �������  			������ (�� 30,06,20)
-
-3) ������������ 
-������ ������ ����������� (������������) �� ��� ����� ����, ��� �� �������� 
+3) Документация 
+Каждый делает комментарии (документацию) на тот кусок кода, что он выполнил 
 
 4)Allure
-������ ������ ������� ��� ���� ����� ���� 
+Каждый делает обертку под свой кусок кода 
 
-5)������� 
-������
-
-
-6) ��� 
-
-������� LoginPage �� �������� RegistrationClient, RegistrationTester, Authentication    	  �����  
-
-������� StartPage          									 //������ 
-
-������� ClientPersonalAccountPage 								 ��������� 								
-
-������� TesterPersonalAccountPage  								 ���������
-
-������� ClientOrderTest										 ���������
-
-����������� OneOffMailPageThroughRequests  							 ������
-
-������� @���� RegistrationClientTest  	//����������� ������� � ��������� ������ 		 �����						 							 
-������� @���� RegistrationTesterTest 	//����������� ������� � ��������� ������		 ���������
-
-������� @���� AuthenticationClient	//���� � ������� ������� 				 ���������
-
-������� @���� AuthenticationTester	//���� � ������� ������� 				 ���������/������
-
-������� @���� CheckProfileClient 	//�������� ������ ������� �������			 ���������
-
-������� @���� OrderTestFromClient 	//������ �� ������������				 ������
-
-������� @���� ErrorRegistration         //
+5)Мержить 
+Виктор
 
 
+6) Код 
 
-7) ������������� ������ 
+Разбить LoginPage на страницы RegistrationClient, RegistrationTester, Authentication    	  Алмаз  
 
-�)RegistrationClient  			�����  
+Создать StartPage          									 //резерв 
 
-void openPopUp();  //������� ���� �����������
+Создать ClientPersonalAccountPage 								 Ростислав 								
 
-void clickRegistration();  // ������� ���� �����������
+Создать TesterPersonalAccountPage  								 Ростислав
 
-void clickRegistrationClient(); // ������ ����������� ������� 
+Создать ClientOrderTest										 Александр
 
-void inputPersonName(String personName); // ������ ���� ���
+Реализовать OneOffMailPageThroughRequests  							 Виктор
 
-void inputPosition(String position); // ������ ���������
+Создать @тест RegistrationClientTest  	//регистрация клиента с случайной почтой 		 Алмаз						 							 
+Создать @тест RegistrationTesterTest 	//регистрация тестера с случайной почтой		 Ростислав
 
-void inputCompanyName(String companyName); //������ ��� ��������
+Создать @тест AuthenticationClient	//Вход в профиль клиента 				 Александр
 
-void inputEmail(String email);  // ������ ����� ��� �����������
+Создать @тест AuthenticationTester	//Вход в профиль тестера 				 Александр/Виктор
 
-void inputPhone(String phone); // ������ ����� ��������
+Создать @тест CheckProfileClient 	//Проверка данных профиля клиента			 Александр
 
-void inputSite(String site); //������� ��� ����
+Создать @тест OrderTestFromClient 	//Запрос на тестирование				 Виктор
 
-void clickFinishRegistration();  //��������� ����������� 
+Создать @тест ErrorRegistration         //
 
-void logIn(String email, String password);   //����� � ������������������ �������
 
-void logOut();   //����� �� ������������������� ������� 
+
+7) Реализованные методы 
+
+а)RegistrationClient  			Алмаз  
+
+void openTestStand(); //открыть тестовый стенд
+
+void openPopUp();  //открыть окно авторизации
+
+void clickRegistration();  // открыть окно регистрации
+
+void clickRegistrationClient(); // начать регистрацию клиента 
+
+void inputPersonName(String personName); // Ввести ваше имя
+
+void inputPosition(String position); // ввести должность
+
+void inputCompanyName(String companyName); //ввести имя компании
+
+void inputEmail(String email);  // ввести емайл для регистрации
+
+void inputPhone(String phone); // ввести номер телефона
+
+void inputSite(String site); //введите ваш сайт
+
+void clickFinishRegistration();  //завершить регистрацию 
+
+void logIn(String email, String password);   //Войти в зарегестрированный профиль
+
+void logOut();   //Выйти из зарегестрированного профиля 
  
 
 
 
-�)RegistrationTester  			 �����
+б)RegistrationTester  			 Алмаз
 
-void openPopUp();  //������� ���� �����������
+void openTestStand(); //открыть тестовый стенд
 
-void clickRegistration();  // ������� ���� �����������
+void openPopUp();  //открыть окно авторизации
 
-void clickRegistrationTester(); // ������ ����������� �������
+void clickRegistration();  // открыть окно регистрации
 
-void inputEmail(String email);  // ������ ����� ��� �����������
+void clickRegistrationTester(); // начать регистрацию тестера
 
-void clickFinishRegistration();  //��������� ����������� 
+void inputEmail(String email);  // ввести емайл для регистрации
 
-void logIn(String email, String password);   //����� � ������������������ �������
+void clickFinishRegistration();  //завершить регистрацию 
 
-void logOut();   //����� �� ������������������� ������� 
+void logIn(String email, String password);   //Войти в зарегестрированный профиль
 
-
-
-�)Authentication   			 �����  
-
-void openPopUp();  //������� ���� �����������
-
-void inputEmail(String email);  // ������ ����� ��� �����������
-
-void inputPassword(String password);  // ������ ������ ��� �����������
-
-void clickAuthentication();  // ������ ������ ����������� 
-
-void logOut();   //����� �� ������� 
+void logOut();   //Выйти из зарегестрированного профиля
 
 
 
-�)ClientPersonalAccountPage 		 ���������    
+в)Authentication   			 Алмаз  
 
-void logIn();  // ����� � ������� �������
+void openTestStand(); //открыть тестовый стенд
 
-void profilInfoIn();  //����� � ������� ������ ������� ��������
+void openPopUp();  //открыть окно авторизации
 
-void checkLogin();  // �������� ���� ������
+void inputEmail(String email);  // ввести емайл для авторизации
 
-void checkEmail();  //�������� ������
+void inputPassword(String password);  // ввести пароль для авторизации
 
-void chekFIO();  //�������� ���
+void clickAuthentication();  // нажать кнопку авторизации 
 
-void logOut();  // ����� �� ������� 
-
-
-
-�)TesterPersonalAccountPage		  ���������
-
-void logIn();  // ����� � ������� �������
-
-void profilInfoIn();  //����� � ������� ������ ������� ��������
-
-void logOut();  // ����� �� ������� 
+void logOut();   //Выйти из профиля 
 
 
+г)ClientPersonalAccountPage 		 Ростислав  
+
+void openTestStand(); //открыть тестовый стенд  
+
+void logIn();  // войти в профиль клиента
+
+void profilInfoIn();  //зайти в профиль внутри личного кабинета
+
+void checkLogin();  // проверка поля логина
+
+void checkEmail();  //проверка емайла
+
+void chekFIO();  //проверка ФИО
+
+void logOut();  // выйти из профиля 
 
 
-�)ClientOrderTest      			  ��������� 
 
-void logIn();   //����� � ������ ������� 
+д)TesterPersonalAccountPage		  Ростислав
 
-void logout();	//����� �� ������� ��������
+void openTestStand(); //открыть тестовый стенд
 
-void createTest();  // ������ �������� �����
+void logIn();  // войти в профиль клиента
 
-void inputNameTest(String nameTest);  // ������ ��������� �����
+void profilInfoIn();  //зайти в профиль внутри личного кабинета
 
-void inputSiteTest(String SiteTest); // ������ ��� ������������ ����� 
+void logOut();  // выйти из профиля 
+
+
+
+
+е)ClientOrderTest      			  Александр 
+
+void openTestStand(); //открыть тестовый стенд
+
+void logIn();   //войти в личный кабинет 
+
+void logout();	//выйти из личного кабинета
+
+void createTest();  // начать создание теста
+
+void inputNameTest(String nameTest);  // ввести назхвание теста
+
+void inputSiteTest(String SiteTest); // ввести имя тестируемого сайта 
 
 void inputIntroductoryInformation(String information);
 
-void clickNext();  // ������� � ������ ���������
+void clickNext();  // переход к выбору аудитории
 
-void inputSegmentName(String segmentName);  //������ �������� �������� 
+void inputSegmentName(String segmentName);  //ввести название сегмента 
 
-void clickTasks();   //������� � ��������
+void clickTasks();   //Перейти к заданиям
 
-void inputTask(String task);   // �������� �������
+void inputTask(String task);   // добавить задание
 
-void clickAddTask();   //�������� ������ 
+void clickAddTask();   //добавить задачу 
 
-void clickCheckAndRun();   //��������� �������� � ������
+void clickCheckAndRun();   //запустить проверку и запуск
 
-void clickRunFreeTest();  // ��������� ���������� ����
+void clickRunFreeTest();  // запустить бесплатный тест
 
-void clickGoToListTests();  // ������� � ����� ������ 
+void clickGoToListTests();  // перейти к листу тестов 
 
 
 
-�)OneOffMailPageThroughRequests		    ������ 
+г)OneOffMailPageThroughRequests		    Виктор 
 
-static String getNewEmailTenMinutes();  //���������� ����� ���� �� 10 �����
+static String getNewEmailTenMinutes();  //возвращает новый ящик на 10 минут 
 
-static String getEmail();  // ���������� ������������ ����, ��� ������ ������ ���� ������ ��� ������������� �����
+static String getEmail();  // возвращает используемый ящик, или пустую строку если сейчас нет используемого ящика
 
-static String getPassword(); //���������� ������ �� �������� ����� ��� ������ ������ ���� ������ �� ������������� �����
+static String getPassword(); //возвращает пароль от текущего ящика или пустую строку если сейчас не используемого ящика
 
-static void deleteEmail();  //��������� ������������� �������� �����
+static void deleteEmail();  //завершить использование текущего ящика  
 
 

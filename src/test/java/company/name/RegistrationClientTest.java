@@ -41,69 +41,69 @@ public class RegistrationClientTest {
     public void createTestClient() throws IOException{
         openTestStand();
         step("Проверяем активность кнопки \"Войти\"", () -> {
-            Assert.assertTrue(registrationClient.getLoginButton().isEnabled());
+            Assert.assertTrue(registrationClient.getLoginButton().isEnabled(), "\"Login\" button not active");
         });
         openPopUpStep();
         new WebDriverWait(driver, timeWait).withMessage("Click register exception")
                 .until((d) -> registrationClient.getStartRegistrationButton().isDisplayed());
         step("Проверяем активность кнопки \"Забыли пароль\"", () -> {
-            Assert.assertTrue(registrationClient.getForgotPassword().isEnabled());
+            Assert.assertTrue(registrationClient.getForgotPassword().isEnabled(), "The \"Forgot Password\" button is inactive");
         });
         clickRegistrationStep();
         step("Проверяем активность кнопки \"Стать клиентом\"", () -> {
-            Assert.assertTrue(registrationClient.getNewRegistrationClientButton().isEnabled());
+            Assert.assertTrue(registrationClient.getNewRegistrationClientButton().isEnabled(),"The \"Become a customer\" button is inactive");
         });
         clickRegistrationClientStep();
         step("Проверяем активность кнопки \"Зарегистрироватся\"", () -> {
-            Assert.assertTrue(registrationClient.getRegistrationClientOnFieldRegistration().isEnabled());
+            Assert.assertTrue(registrationClient.getRegistrationClientOnFieldRegistration().isEnabled(), "\"Register\" button is not active");
         });
         inputPersonNameStep();
         step("Поле заполненно именем", () -> {
-            Assert.assertFalse(registrationClient.getFieldText().equals(name));
+            Assert.assertTrue(registrationClient.getRegistrationNameField().getAttribute("value").equals(name), "\"Name\" field is empty");
         });
         inputPositionStep();
         step("Поле заполненно должностью", () -> {
-            Assert.assertFalse(registrationClient.getRegistrationPositionField().getText().equals(position));
+            Assert.assertTrue(registrationClient.getRegistrationPositionField().getAttribute("value").equals(position), "The field \"Position\" is not filled");
         });
         inputCompanyNameStep();
         step("Поле заполненно компанией", () -> {
-            Assert.assertFalse(registrationClient.getRegistrationCompanyField().getText().equals(company));
+            Assert.assertTrue(registrationClient.getRegistrationCompanyField().getAttribute("value").equals(company), "Field \"Company\" is not filled");
         });
         inputEmailStep();
         step("Поле заполненно почтой", () -> {
-            Assert.assertFalse(registrationClient.getRegistrationEmailField().getText().equals(emailTest));
+            Assert.assertTrue(registrationClient.getRegistrationEmailField().getAttribute("value").equals(emailTest), "\"Mail\" field is empty");
         });
         inputPhoneStep();
         step("Поле заполненно номером", () -> {
-            Assert.assertFalse(registrationClient.getRegistrationPhoneNumberField().getText().equals(phone));
+            Assert.assertTrue(registrationClient.getRegistrationPhoneNumberField().getAttribute("value").equals(phone), "\"Number\" field is empty");
         });
         inputSiteStep();
         step("Поле заполненно ссылкой", ()-> {
-            Assert.assertFalse(registrationClient.getRegistrationSiteField().getText().equals(siteTest));
+            Assert.assertTrue(registrationClient.getRegistrationSiteField().getAttribute("value").equals(siteTest), "The \"link to the site\" field is empty");
         });
         clickFinishRegistrationStep();
         step("Элемент \"галочка\" активна");
-        Assert.assertTrue(registrationClient.getCheck().isEnabled());
+        Assert.assertTrue(registrationClient.getCheck().isEnabled(), "\"Checkmark\" not active");
         loginButtonClickStep();
         passwordTest = OneOffMailPageThroughRequests.getPassword();
         step("Проверяем активность кнопки \"Зарегистрироватся\"", () -> {
-            Assert.assertTrue(registrationClient.getStartRegistrationButton().isEnabled());
+            Assert.assertTrue(registrationClient.getStartRegistrationButton().isEnabled(), "\"Register\" button is not active");
         });
         loginFieldStep();
         step("Поле заполненно почтой", () -> {
-            Assert.assertFalse(registrationClient.getLoginFiled().getText().equals(emailTest));
+            Assert.assertTrue(registrationClient.getLoginFiled().getAttribute("value").equals(emailTest), "\"Mail\" field is empty");
         });
         passwordFieldStep();
         step("Поле заполненно паролем", () -> {
-            Assert.assertFalse(registrationClient.getPasswordField().getText().equals(passwordTest));
+            Assert.assertTrue(registrationClient.getPasswordField().getAttribute("value").equals(passwordTest), "\"Password\" field is empty");
         });
         inButtonStep();
         step("Проверяем активность кнопки \"Выйти\"", () -> {
-            Assert.assertTrue(registrationClient.getLogout().isEnabled());
+            Assert.assertTrue(registrationClient.getLogout().isEnabled(), "\"Login\" button not active");
         });
         logOutStep();
         step("Проверяем активность кнопки \"Войти\"", () -> {
-            Assert.assertTrue(registrationClient.getLoginButton().isEnabled());
+            Assert.assertTrue(registrationClient.getLoginButton().isEnabled(), "\"Logout\" button not active");
         });
     }
 

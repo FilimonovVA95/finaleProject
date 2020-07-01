@@ -3,6 +3,7 @@ package company.name.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author Akmataliev Almaz
@@ -12,6 +13,7 @@ public class RegistrationTester extends AbstractPage {
 
     private String testStand;
     private WebDriver driver;
+    private int timeWait = 10000;
 
     /**
      *
@@ -55,6 +57,7 @@ public class RegistrationTester extends AbstractPage {
 
     @FindBy(id = "logout")                          // Кнопка выйти
     private WebElement clickLogOut;
+
 
     /**
      *

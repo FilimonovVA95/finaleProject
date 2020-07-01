@@ -3,6 +3,7 @@ package company.name.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Класс личного кабинета пользователя
@@ -20,6 +21,9 @@ public class ClientPersonalAccountPage extends AbstractPage {
     @FindBy(id = "login")
     private WebElement loginFiled;              //Поле для ввода логина при входе
 
+    @FindBy(css = "[for=registrationLk]") // кнопка регистрации нового пользователя
+    private WebElement startRegistrationButton;
+
     @FindBy(css = "[type=password]")
     private WebElement passwordField;           //Поле для ввода пароля
 
@@ -33,16 +37,16 @@ public class ClientPersonalAccountPage extends AbstractPage {
     @FindBy(id = "logout")
     private WebElement exitButton;             // Кнопка выхода из личного кабинета
 
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div/div[2]/div[1]/div[2]/a")
+    @FindBy(className = "inline-btn btn_settings")
     private WebElement profileSettingsButton;  //Кнопка входа в настройки профиля
 
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div/div[2]/div[2]/div[2]/div/div/div[1]/div[1]/input")
+    @FindBy(css = "[ng-model=\"customerProfile.username\"]")
     private WebElement userNameField;          // Поле логин пользователя yedake3020, пароль HJobXi
 
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div/div[2]/div[2]/div[2]/div/div/div[1]/div[2]/input")
+    @FindBy(className = "customer-form-control ng-pristine ng-untouched ng-valid ng-not-empty")
     private WebElement emailAddressField;      //Поле email пользователя yedake3020@mijumail.com
 
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div/div[2]/div[2]/div[2]/div/div/div[1]/form[2]/div[1]/input")
+    @FindBy(xpath = "//div[@class='uxc_custom_input filled']//input[@name='fio'")
     private WebElement fioField;               //Поле ФИО пользователя Rost
 
     /**
@@ -60,6 +64,7 @@ public class ClientPersonalAccountPage extends AbstractPage {
      */
     private String testStand;
     private WebDriver driver;
+    private int timeWait = 10;
     private final String login = "yedake3020";
     private final String password = "HJobXi";
     private final String email = "yedake3020@mijumail.com";
@@ -75,9 +80,17 @@ public class ClientPersonalAccountPage extends AbstractPage {
     /**
      * Открыть окошко для входа
      */
-    public void logIn(){
+//    public void logIn(){
+//        loginButton.click();
+//        loginFiled.sendKeys(login);
+//        passwordField.sendKeys(password);
+//        submitButton.click();
+//    }
+    public void logIn(String email, String password) {
         loginButton.click();
-        loginFiled.sendKeys(login);
+        new WebDriverWait(driver, timeWait).withMessage("Click register exception")
+                .until((d) -> startRegistrationButton.isDisplayed());
+        loginFiled.sendKeys(email);
         passwordField.sendKeys(password);
         submitButton.click();
     }

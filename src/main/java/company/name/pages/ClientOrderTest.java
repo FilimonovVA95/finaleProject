@@ -4,12 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * @Author Aleksander Dmitriev
+ * @mail shdmi.2010@gmail.com
+ */
 public class ClientOrderTest extends AbstractPage {
-    /**
-     * написал ClientOrderTest
-     * @Author Aleksander Dmitriev
-     * @mail shdmi.2010@gmail.com
-     */
+
     private String testStand;
     private WebDriver driver;
     private String login; // здесь надо ввести нужный логин
@@ -18,45 +18,53 @@ public class ClientOrderTest extends AbstractPage {
     @FindBy(id = "header-lk-button")
     private WebElement loginButton;
 
+    @FindBy(id = "login")
+    private WebElement loginFiled;
+
+    @FindBy(css = "[type=password]")
+    private WebElement passwordField;
+
+    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"]")
+    private WebElement submitButton;
+
     @FindBy(id = "logout")
     private WebElement exitButton;
 
-    @FindBy(css = ".MuiButton-label")
+    @FindBy(css = "MuiButton-label")
     private WebElement createTest;
 
-    @FindBy(css = ".sc-dxgOiQ:nth-child(1) .sc-fjdhpX")
-    private WebElement naming;
+    @FindBy(css = "data-autotest-id=\"text_input_testNameInput\"")
+    private WebElement testName;
 
-    @FindBy(css = ".sc-dxgOiQ:nth-child(3) .sc-fjdhpX")
+    @FindBy(css = "data-autotest-id=\"text_input_testTargetURL\"")
     private WebElement siteName;
 
-    @FindBy(css = ".sc-iwsKbI")
-    private WebElement Information;
+    @FindBy(css = "data-autotest-id=\"text_input_testDescriptionTextarea\"")
+    private WebElement informationField;
 
-    @FindBy(css = ".sc-bxivhb")
-    private WebElement Next;
+    @FindBy(css = "class=\"sc-bxivhb bJUtjD\"")
+    private WebElement toPeopleGroup;
 
-    @FindBy(css = ".bHWJDm")
-    private WebElement Segment;
+    @FindBy(css = "data-autotest-id=\"text_input_groupName_0\"")
+    private WebElement peopleGroup;
 
-    @FindBy(css = ".bJUtjD")
-    private WebElement TaskClick;
+    @FindBy(css = "bJUtjD")
+    private WebElement taskClick;
 
-    @FindBy(css = ".sc-iwsKbI")
-    private WebElement AddTask;
+    @FindBy(css = "data-autotest-id=\"text_input_tasks_task_question\"")
+    private WebElement addTask;
 
-    @FindBy(css = ".sc-bxivhb:nth-child(1)")
-    private WebElement Nest;
+    @FindBy(css = "data-autotest-id=\"tasks_submit_task\"")
+    private WebElement confirmButton;
 
-    @FindBy(css = ".sc-kAzzGY:nth-child(2) > .sc-cSHVUG")
-    private WebElement Commit;
+    @FindBy(css = "class=\"sc-bxivhb bJUtjD\"")
+    private WebElement commitButton;
 
-    @FindBy(css = ".sc-bxivhb:nth-child(6)")
-    private WebElement RunFree;
+    @FindBy(css = "data-autotest-id=\"checkout_start_button\"")
+    private WebElement runFree;
 
-    @FindBy(css = ".bJUtjD")
-    private WebElement TestList;
-
+    @FindBy(css = "class=\"sc-bxivhb iaxSpn\"")
+    private WebElement testList;
 
 
     /**
@@ -70,83 +78,127 @@ public class ClientOrderTest extends AbstractPage {
         this.driver = driver;
     }
 
-    public void openTestStand() //открыть тестовый стенд
-    {
+    /**
+     * открывает тестовый стенд
+     */
+    public void openTestStand() {
         driver.get(testStand);
     }
 
-    public void logIn()   //войти в личный кабинет
-    {
+    /**
+     * окно входа в личный кабинет
+     */
+    public void logIn() {
         loginButton.click();
         loginFiled.sendKeys(login);
         passwordField.sendKeys(password);
         submitButton.click();
     }
 
-    public void logout()    //выйти из личного кабинета
-    {
+    /**
+     * выход из личного кабинета
+     */
+    public void logout() {
         exitButton.click();
     }
 
-    public void createTest()  // начать создание теста
-    {
+    /**
+     * начало создания нового теста
+     */
+    public void createTest() {
         createTest.click();
     }
 
-    public void inputNameTest(String nameTest)  // ввести назхвание теста
-    {
-        naming.sendKeys(nameTest);
+    /**
+     * ввод названия теста
+     *
+     * @param nameTest - само название теста
+     */
+    public void inputNameTest(String nameTest) {
+        testName.sendKeys(nameTest);
     }
 
-    public void inputSiteTest(String SiteTest) // ввести имя тестируемого сайта
-    {
+    /**
+     * ввод имени тестируемого сайта
+     *
+     * @param SiteTest - имя тестируемого сайта
+     */
+    public void inputSiteTest(String SiteTest) {
         siteName.sendKeys(SiteTest);
     }
 
+    /**
+     * Вводная информация для респондента
+     *
+     * @param information - информация для респондента
+     */
     public void inputIntroductoryInformation(String information) {
-        Information.sendKeys(information);
+        this.informationField.sendKeys(information);
     }
 
-    public void clickNext()  // переход к выбору аудитории
-    {
-        Next.click();
+    /**
+     * переход к аудитории, которая будет проходить тест
+     */
+    public void clickNext() {
+        toPeopleGroup.click();
     }
 
-    public void inputSegmentName(String segmentName)  //ввести название сегмента
-    {
-        Segment.sendKeys(segmentName);
+    /**
+     * ввод названия тестовой группы
+     *
+     * @param segmentName - имя тестовой группы
+     */
+    public void inputSegmentName(String segmentName) {
+        peopleGroup.sendKeys(segmentName);
     }
 
-    public void clickTasks()   //Перейти к заданиям
-    {
-        TaskClick.click();
+    /**
+     * переход к заданиям
+     */
+    public void clickTasks() {
+        taskClick.click();
     }
 
-    public void inputTask(String task)   // добавить задание
-    {
-        AddTask.sendKeys(task);
+    /**
+     * добавление задания тестерам
+     *
+     * @param task - задание тестерам
+     */
+    public void inputTask(String task) {
+        addTask.sendKeys(task);
     }
 
-    public void clickAddTask()   //добавить задачу
-    {
-        Nest.click();
+    /**
+     * подтверждение добавления задания
+     */
+    public void clickAddTask() {
+        confirmButton.click();
     }
 
-    public void clickCheckAndRun()   //запустить проверку и запуск
-    {
-        Commit.click();
+    /**
+     * проверка и запуск теста
+     */
+    public void clickCheckAndRun() {
+        commitButton.click();
     }
 
-    public void clickRunFreeTest()  // запустить бесплатный тест
-    {
-        RunFree.click();
+    /**
+     * запуск бесплатного теста
+     */
+    public void clickRunFreeTest() {
+        runFree.click();
     }
 
-    public void clickGoToListTests()  // перейти к листу тестов
-    {
-        TestList.click();
+    /**
+     * переход к списку тестов
+     */
+    public void clickGoToListTests() {
+        testList.click();
     }
 
+    /**
+     * список геттеров
+     */
 
     public WebElement getLoginButton() {
         return loginButton;
@@ -160,48 +212,48 @@ public class ClientOrderTest extends AbstractPage {
         return createTest;
     }
 
-    public WebElement getNaming() {
-        return naming;
+    public WebElement getTestName() {
+        return testName;
     }
 
     public WebElement getSiteName() {
         return siteName;
     }
 
-    public WebElement getInformation() {
-        return Information;
+    public WebElement getInformationField() {
+        return this.informationField;
     }
 
-    public WebElement getNext() {
-        return Next;
+    public WebElement getToPeopleGroup() {
+        return toPeopleGroup;
     }
 
-    public WebElement getSegment() {
-        return Segment;
+    public WebElement getPeopleGroup() {
+        return peopleGroup;
     }
 
     public WebElement getTaskClick() {
-        return TaskClick;
+        return taskClick;
     }
 
     public WebElement getAddTask() {
-        return AddTask;
+        return addTask;
     }
 
     public WebElement getNest() {
-        return Nest;
+        return confirmButton;
     }
 
-    public WebElement getCommit() {
-        return Commit;
+    public WebElement getCommitButton() {
+        return commitButton;
     }
 
     public WebElement getRunFree() {
-        return RunFree;
+        return runFree;
     }
 
     public WebElement getTestList() {
-        return TestList;
+        return testList;
     }
 
 }

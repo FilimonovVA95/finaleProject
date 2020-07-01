@@ -173,9 +173,6 @@ public class RegistrationClient extends AbstractPage {
     /**
      * Геттеры для вебэлементов
      */
-    public String getFieldText() {
-        return getRegistrationNameField().getText();
-    }
 
     public String getTestStand() {
         return testStand;

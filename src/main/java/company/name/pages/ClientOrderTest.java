@@ -12,12 +12,14 @@ public class ClientOrderTest extends AbstractPage {
      */
     private String testStand;
     private WebDriver driver;
+    private String login; // здесь надо ввести нужный логин
+    private String password; // здесь нужно ввести нужный пароль
 
     @FindBy(id = "header-lk-button")
     private WebElement loginButton;
 
     @FindBy(id = "logout")
-    private WebElement exitButton;             // Кнопка выхода из личного кабинета
+    private WebElement exitButton;
 
     @FindBy(css = ".MuiButton-label")
     private WebElement createTest;
@@ -68,12 +70,12 @@ public class ClientOrderTest extends AbstractPage {
         this.driver = driver;
     }
 
-    void openTestStand() //открыть тестовый стенд
+    public void openTestStand() //открыть тестовый стенд
     {
         driver.get(testStand);
     }
 
-    void logIn()   //войти в личный кабинет
+    public void logIn()   //войти в личный кабинет
     {
         loginButton.click();
         loginFiled.sendKeys(login);
@@ -81,66 +83,66 @@ public class ClientOrderTest extends AbstractPage {
         submitButton.click();
     }
 
-    void logout()    //выйти из личного кабинета
+    public void logout()    //выйти из личного кабинета
     {
         exitButton.click();
     }
 
-    void createTest()  // начать создание теста
+    public void createTest()  // начать создание теста
     {
         createTest.click();
     }
 
-    void inputNameTest(String nameTest)  // ввести назхвание теста
+    public void inputNameTest(String nameTest)  // ввести назхвание теста
     {
         naming.sendKeys(nameTest);
     }
 
-    void inputSiteTest(String SiteTest) // ввести имя тестируемого сайта
+    public void inputSiteTest(String SiteTest) // ввести имя тестируемого сайта
     {
         siteName.sendKeys(SiteTest);
     }
 
-    void inputIntroductoryInformation(String information) {
+    public void inputIntroductoryInformation(String information) {
         Information.sendKeys(information);
     }
 
-    void clickNext()  // переход к выбору аудитории
+    public void clickNext()  // переход к выбору аудитории
     {
         Next.click();
     }
 
-    void inputSegmentName(String segmentName)  //ввести название сегмента
+    public void inputSegmentName(String segmentName)  //ввести название сегмента
     {
         Segment.sendKeys(segmentName);
     }
 
-    void clickTasks()   //Перейти к заданиям
+    public void clickTasks()   //Перейти к заданиям
     {
         TaskClick.click();
     }
 
-    void inputTask(String task)   // добавить задание
+    public void inputTask(String task)   // добавить задание
     {
         AddTask.sendKeys(task);
     }
 
-    void clickAddTask()   //добавить задачу
+    public void clickAddTask()   //добавить задачу
     {
         Nest.click();
     }
 
-    void clickCheckAndRun()   //запустить проверку и запуск
+    public void clickCheckAndRun()   //запустить проверку и запуск
     {
         Commit.click();
     }
 
-    void clickRunFreeTest()  // запустить бесплатный тест
+    public void clickRunFreeTest()  // запустить бесплатный тест
     {
         RunFree.click();
     }
 
-    void clickGoToListTests()  // перейти к листу тестов
+    public void clickGoToListTests()  // перейти к листу тестов
     {
         TestList.click();
     }

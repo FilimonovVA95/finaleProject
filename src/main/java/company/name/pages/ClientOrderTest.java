@@ -6,11 +6,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class ClientOrderTest extends AbstractPage {
     /**
-     * Приходит один представитель грузинской национальности к другому домой и видит, что его друг обвязывает себя вокруг пояса веревкой. Он спрашивает:
-     * - Гиви, что ты дэлаешь???
-     * - Не видишь, вэшаюсь? !
-     * - А почему за живот веревку завязиваешь? надо же за шею...
-     * - Эээ... За шею пробовал, задыхаюсь...
+     * написал ClientOrderTest
+     * @Author Aleksander Dmitriev
+     * @mail shdmi.2010@gmail.com
      */
     private String testStand;
     private WebDriver driver;

@@ -33,7 +33,7 @@ public class ClientPersonalAccountPage extends AbstractPage {
     @FindBy(id = "logout")
     private WebElement exitButton;             // Кнопка выхода из личного кабинета
 
-    @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div/div[2]/div[1]/div[2]/a")
+    @FindBy(className = "inline-btn btn_settings")
     private WebElement profileSettingsButton;  //Кнопка входа в настройки профиля
 
     @FindBy(xpath = "//*[@id=\"top\"]/div[2]/div/div[2]/div[2]/div[2]/div/div/div[1]/div[1]/input")

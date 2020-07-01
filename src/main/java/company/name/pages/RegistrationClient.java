@@ -3,6 +3,7 @@ package company.name.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author Akmataliev Almaz
@@ -12,6 +13,7 @@ public class RegistrationClient extends AbstractPage {
 
     private String testStand;
     private WebDriver driver;
+    private int timeWait = 3000;
 
     /**
      *
@@ -30,8 +32,11 @@ public class RegistrationClient extends AbstractPage {
     private WebElement startRegistrationButton;
 
     @FindBy(css = "[ng-tr=\"WHE1.WHE12\"]")// кнопка зарегистрировать клиента
-    private WebElement startRegistrationClientButton;
+    private WebElement newRegistrationClientButton;
 
+    @FindBy(css = "[ng-tr=\"WHE.WHE23\"]") // кнопка "Забыли пароль"
+    private WebElement forgotPassword;
+    
     @FindBy(id = "name")
     private WebElement registrationNameField;       //поле для ввода имени
 
@@ -51,7 +56,7 @@ public class RegistrationClient extends AbstractPage {
     private WebElement registrationSiteField;       //поле для ввода ссылки на сайт
 
     @FindBy(css = "[ng-tr=\"WHE.WHE26\"]") //кнопка "Зарегистрироваться" клиента
-    private WebElement registrationButton;
+    private WebElement registrationClientOnFieldRegistration;
 
     @FindBy(id = "Галочка")
     private WebElement check; // Проверка что клиент зарегистрирован
@@ -83,10 +88,10 @@ public class RegistrationClient extends AbstractPage {
     }
 
     /**
-     * нажатие кнопки "Зарегистрироватся
+     * нажатие кнопки "Зарегистрироватся"
      */
     public void clickRegistrationClient(){
-        startRegistrationButton.click();
+        newRegistrationClientButton.click();
     }
 
     /**
@@ -135,7 +140,7 @@ public class RegistrationClient extends AbstractPage {
      * нажатие кнопки регистрация клиента
      */
     public void clickFinishRegistration(){
-        registrationButton.click();
+        registrationClientOnFieldRegistration.click();
     }
 
     /**
@@ -143,6 +148,8 @@ public class RegistrationClient extends AbstractPage {
      */
     public void logIn(String email, String password){
         loginButton.click();
+        new WebDriverWait(driver, timeWait).withMessage("Click register exception")
+                .until((d) -> startRegistrationButton.isDisplayed());
         loginFiled.sendKeys(email);
         passwordField.sendKeys(password);
         inButton.click();
@@ -166,6 +173,9 @@ public class RegistrationClient extends AbstractPage {
     /**
      * Геттеры для вебэлементов
      */
+    public String getFieldText() {
+        return getRegistrationNameField().getText();
+    }
 
     public String getTestStand() {
         return testStand;
@@ -179,12 +189,16 @@ public class RegistrationClient extends AbstractPage {
         return loginButton;
     }
 
+    public WebElement getForgotPassword() {
+        return forgotPassword;
+    }
+
     public WebElement getStartRegistrationButton() {
         return startRegistrationButton;
     }
 
-    public WebElement getStartRegistrationClientButton() {
-        return startRegistrationClientButton;
+    public WebElement getNewRegistrationClientButton() {
+        return newRegistrationClientButton;
     }
 
     public WebElement getRegistrationNameField() {
@@ -211,8 +225,8 @@ public class RegistrationClient extends AbstractPage {
         return registrationSiteField;
     }
 
-    public WebElement getRegistrationButton() {
-        return registrationButton;
+    public WebElement getRegistrationClientOnFieldRegistration() {
+        return registrationClientOnFieldRegistration;
     }
 
     public WebElement getCheck() {

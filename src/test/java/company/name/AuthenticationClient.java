@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.io.File;
@@ -17,90 +18,97 @@ import java.util.Date;
 import static io.qameta.allure.Allure.step;
 
 /**
- * данный тест проверяет возможность войти с заданными логином и паролем
- * @Author Aleksander Dmitriev
+ * Тест проверяет возможность войти с заданными логином и паролем
+ * @author Aleksander Dmitriev
  */
 public class AuthenticationClient {
 
-    String email = "";//ввести логин
-    String password = "";//ввести пароль
+    private String email = "kicoti9729@kartk5.com";  // Почта заранее зарагестрированного пользователя
+    private String password = "QlwS1Z";  // Пароль от личного кабинета клиента
 
-    WebDriver driver = DriverManager.getDriver();
-    Authentication authentication = new Authentication(driver);
+    private WebDriver driver = DriverManager.getDriver();
+    private Authentication authentication = new Authentication(driver);
 
     @Test
-    public void AutentificationClient() throws IOException{
-        openTestStandStep();
-
-        screenShotStep()
+    public void AutentificationClient() {
+        openTestStand();
         step("Проверяем активность кнопки \"Войти\"", () -> {
-            Assert.assertTrue(Authentication.getLoginButton().isEnabled(), "Open test stand exception");
+            Assert.assertTrue(authentication.getLoginButton().isEnabled(), "Open test stand exception");
         });
+
         openPopUpStep();
-
-        screenShotStep()
-        step("Проверяем активность поля ввода e-mail", () -> {
-            Assert.assertTrue(Authentication.getLoginFiled().isEnabled(), "Нет поля ввода e-mail");
+        step("Проверяем открытие окна авторизации", () -> {
+            Assert.assertTrue(authentication.getClickLogIn().isEnabled(), "Open popUp exception");
         });
+
         inputEmailStep(email);
-
-        screenShotStep()
-        step("Проверяем активность поля ввода пароля", () -> {
-            Assert.assertTrue(Authentication.getPasswordField().isEnabled(), "Нет поля ввода пароля");
+        step("Проверяем правильность ввода email", () -> {
+            Assert.assertTrue(authentication.getLoginFiled().getAttribute("value").equals(email), "Input email exception");
         });
+
         inputPasswordStep(password);
-
-        screenShotStep()
-        step("Проверяем активность кнопки \"Войти\" ", () -> {
-            Assert.assertTrue(Authentication.getClickLogIn().isEnabled(), "Нет кнопки \"Войти\"");
+        step("Проверяем правильность ввода пароля", () -> {
+            Assert.assertTrue(authentication.getPasswordField().getAttribute("value").equals(password), "Input password exception");
         });
+
         clickAuthenticationStep();
-
-        screenShotStep()
         step("Проверяем активность кнопки \"Выйти\" ", () -> {
-            Assert.assertTrue(Authentication.getClickLogOut().isEnabled(), "Нет кнопки \"Выйти\"");
+            Assert.assertTrue(authentication.getClickLogOut().isEnabled(), "LogIn exception");
         });
-        logOutStep();
 
-        screenShotStep()
+        logOutStep();
+        step("Проверяем активность кнопки \"Войти\"", () -> {
+            Assert.assertTrue(authentication.getLoginButton().isEnabled(), "LogOut exception");
+        });
+
+        DriverManager.quit();
     }
 
     @Step("Открыть тестовый стенд")
     private void openTestStand(){
-        Authentication.openTestStand();
+        authentication.openTestStand();
+        screenShotStep();
     }
 
     @Step("Нажать кнопку \"Войти\"")
     private void openPopUpStep(){
-        Authentication.openPopUp();
+        authentication.openPopUp();
+        screenShotStep();
     }
 
     @Step("Ввести e-mail")
     private void inputEmailStep(String email){
-        Authentication.inputEmail(email);
+        authentication.inputEmail(email);
+        screenShotStep();
     }
 
     @Step("Ввести пароль")
     private void inputPasswordStep(String password){
-        Authentication.inputPassword(password);
+        authentication.inputPassword(password);
+        screenShotStep();
     }
 
     @Step("Нажать кнопку войти")
     private void clickAuthenticationStep(){
-        Authentication.clickAuthentication();
+        authentication.clickAuthentication();
+        screenShotStep();
     }
 
     @Step("Нажать кнопку выйти")
     private void logOutStep(){
-        Authentication.logOut();
+        authentication.logOut();
+        screenShotStep();
     }
 
+    /**
+     * Метод для получения скриншота и сохранения его в папке screenShots
+     */
     private void screenShotStep() {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File screen = ts.getScreenshotAs(OutputType.FILE);
-        String screenName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString();
+        String screenName = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
         try {
-            FileUtils.copyFile(screen, new File("./ScreenShots/"+screenName+"Screenshot.png"));
+            FileUtils.copyFile(screen, new File("./ScreenShots/"+screenName+"_Screenshot.png"));
         } catch (IOException e) {
             System.out.println("Exception while taking ScreenShot "+e.getMessage());
             e.printStackTrace();

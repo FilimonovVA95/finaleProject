@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
 /**
  * Класс хранящий WebDriver. Реализует паттерн Singleton. Настройки Вебдрайвера подгружаются из файла конфигураций
  */
@@ -48,6 +49,9 @@ public class DriverManager {
         return driver;
     }
 
+    /**
+     * Метод закрытия драйвера
+     */
     public static void quit() {
         driver.quit();
     }

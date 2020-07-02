@@ -81,9 +81,11 @@ public class RegistrationClientTest {
         step("Поле заполненно ссылкой", ()-> {
             Assert.assertTrue(registrationClient.getRegistrationSiteField().getAttribute("value").equals(siteTest), "The \"link to the site\" field is empty");
         });
+
         clickFinishRegistrationStep();
         step("Элемент \"галочка\" активна");
         Assert.assertTrue(registrationClient.getCheck().isEnabled(), "\"Checkmark\" not active");
+
         loginButtonClickStep();
         passwordTest = OneOffMailPageThroughRequests.getPassword();
         step("Проверяем активность кнопки \"Зарегистрироватся\"", () -> {

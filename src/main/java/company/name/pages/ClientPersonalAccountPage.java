@@ -60,7 +60,11 @@ public class ClientPersonalAccountPage extends AbstractPage {
     }
 
     /**
-     *        //по хорошему описание параметров
+     * @param timeWait принимает время ожидания в секундах
+     * @param login логин для входа в личный кабинет
+     * @param password пароль для входа в личный кабинет
+     * @param email адресс почты в настройках профиля для проверки данных поля
+     * @param FIO ФИО пользователя для проверки данных поля
      */
     private String testStand;
     private WebDriver driver;
@@ -80,12 +84,6 @@ public class ClientPersonalAccountPage extends AbstractPage {
     /**
      * Открыть окошко для входа
      */
-//    public void logIn(){
-//        loginButton.click();
-//        loginFiled.sendKeys(login);
-//        passwordField.sendKeys(password);
-//        submitButton.click();
-//    }
     public void logIn(String email, String password) {
         loginButton.click();
         new WebDriverWait(driver, timeWait).withMessage("Click register exception")
@@ -97,6 +95,7 @@ public class ClientPersonalAccountPage extends AbstractPage {
 
     /**
      * Открыть настройки профиля клиента
+     *
      */
     public void profilInfoIn(){
         profileSettingsButton.click();
@@ -134,7 +133,6 @@ public class ClientPersonalAccountPage extends AbstractPage {
     /**
      * Геттеры для вебэлементов
      */
-
     public WebElement getLoginButton() {
         return loginButton;
     }

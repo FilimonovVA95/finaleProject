@@ -31,13 +31,16 @@ public class RegistrationTester extends AbstractPage {
     @FindBy(css = "[for=registrationLk]")           // кнопка регистрации нового пользователя
     private WebElement startRegistrationButton;
 
+    @FindBy(css = "[ng-tr=\"WHE.WHE23\"]")
+    private WebElement forgotPassword;              // кнопка "Забыли пароль"
+
     @FindBy(css = "[ng-tr=\"WHE1.WHE13\"]")         // кнопка регистрации тестировщика
     private WebElement startRegistrationTesterButton;
 
     @FindBy(id = "emails")                          // поле ввода email
     private WebElement registrationEmailField;
 
-    @FindBy(className = "lk-enter-btn")
+    @FindBy(css = "[ng-tr=\"WHE.WHE26\"]")
     private WebElement clickFinishRegistration;     // кнопка регистрации
 
     @FindBy(id = "Галочка")
@@ -98,15 +101,17 @@ public class RegistrationTester extends AbstractPage {
     /**
      *
      */
-    public void clickFinishRegistration(){
+    public void clickFinishRegistrationOnFieldRegistration()
+    {
         clickFinishRegistration.click();
     }
-
     /**
-     * авторизация клиента
+     * авторизация Тестера
      */
     public void logIn(String email, String password){
         loginButton.click();
+        new WebDriverWait(driver, timeWait).withMessage("Click register exception")
+                .until((d) -> startRegistrationButton.isDisplayed());
         loginFiled.sendKeys(email);
         passwordField.sendKeys(password);
         inButton.click();
@@ -130,6 +135,10 @@ public class RegistrationTester extends AbstractPage {
 
     public WebElement getStartRegistrationButton() {
         return startRegistrationButton;
+    }
+
+    public WebElement getForgotPassword() {
+        return forgotPassword;
     }
 
     public WebElement getStartRegistrationTesterButton() {

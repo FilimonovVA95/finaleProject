@@ -3,22 +3,32 @@ package company.name;
 import company.name.pages.OneOffMailPageThroughRequests;
 import company.name.pages.RegistrationClient;
 import io.qameta.allure.Step;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static io.qameta.allure.Allure.step;
 
 /**
  *
- * @author
+ * @author Akmataliev Almaz
+ */
+
+/**
+ * класс для Теста Регистрация клиента и входа клиента
  */
 public class RegistrationClientTest {
 
@@ -110,81 +120,111 @@ public class RegistrationClientTest {
     @Step("Открыть тестовый стенд")
     private void openTestStand(){
         registrationClient.openTestStand();
+        screenShotStep();
     }
 
     @Step("Нажать кнопку \"Войти\"")
     private void openPopUpStep(){
         registrationClient.openPopUp();
+        screenShotStep();
     }
 
     @Step("Нажать кнопку \"Зарегистрироватся\"")
     private void clickRegistrationStep(){
         registrationClient.clickRegistration();
+        screenShotStep();
     }
 
     @Step("Нажать кнопку \"Стать клиентом\"")
     private void clickRegistrationClientStep(){
         registrationClient.clickRegistrationClient();
+        screenShotStep();
     }
 
     @Step("Ввести в поле \"Ваше имя\" имя")
     private void inputPersonNameStep(){
         registrationClient.inputPersonName(name);
+        screenShotStep();
     }
 
     @Step ("Ввести в поле \"Должность\" должность")
     private void inputPositionStep(){
         registrationClient.inputPosition(position);
+        screenShotStep();
     }
 
     @Step("Ввести в поле \"Компания\" компанию")
     private void inputCompanyNameStep(){
         registrationClient.inputCompanyName(company);
+        screenShotStep();
     }
 
     @Step("Ввести в поле \"Почта\" почту")
     private void inputEmailStep(){
         registrationClient.inputEmail(emailTest);
+        screenShotStep();
     }
 
     @Step("Ввести в поле \"Номер\" номер")
     private void inputPhoneStep(){
         registrationClient.inputPhone(phone);
+        screenShotStep();
     }
 
     @Step ("Ввести в поле \"Ссылка на сайт\"")
     private void inputSiteStep(){
         registrationClient.inputSite(siteTest);
+        screenShotStep();
     }
 
     @Step ("Нажать кнопку \"Зарегистрироватся\"")
     private void clickFinishRegistrationStep(){
         registrationClient.clickFinishRegistration();
+        screenShotStep();
     }
 
     @Step("Нажать кнопку \"Войти\"")
     private void loginButtonClickStep(){
         registrationClient.getLoginButton().click();
+        screenShotStep();
     }
 
     @Step("Ввести в поле \"Почта\" почту")
     private void loginFieldStep(){
         registrationClient.getLoginFiled().sendKeys(emailTest);
+        screenShotStep();
     }
 
     @Step("Ввести в поле \"Пароль\" пароль")
     private void passwordFieldStep(){
         registrationClient.getPasswordField().sendKeys(passwordTest);
+        screenShotStep();
     }
 
     @Step("Нажать кнопку \"Войти\"")
     private void inButtonStep(){
         registrationClient.getInButton().click();
+        screenShotStep();
     }
 
     @Step("Нажать кнопку \"Выйти\"")
     private void logOutStep(){
         registrationClient.logOut();
+        screenShotStep();
     }
 
+    /**
+     * Метод для получения скриншота и сохранения его в папке creenShots
+     */
+    private void screenShotStep() {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File screen = ts.getScreenshotAs(OutputType.FILE);
+        String screenName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()).toString();
+        try {
+            FileUtils.copyFile(screen, new File("./ScreenShots/" + screenName + "Screenshot.png"));
+        } catch (IOException e) {
+            System.out.println("Exception while taking ScreenShot " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

@@ -17,18 +17,12 @@ import java.io.IOException;
 import static io.qameta.allure.Allure.step;
 
 public class RegistrationTesterTest {
-    final String emailTest = OneOffMailPageThroughRequests.getNewEmail();
-//    final String passwordTest= OneOffMailPageThroughRequests.getPassword();
-    private int timeWait = 5000;
+    String emailTest = OneOffMailPageThroughRequests.getNewEmail();
+    String passwordTest= OneOffMailPageThroughRequests.getPassword();
+    private int timeWait = 10;
 
     WebDriver driver = DriverManager.getDriver();
     RegistrationTester registrationTester = new RegistrationTester(driver);
-    String passwordTest;
-
-    /**
-     * Поля переменных, необходимых при тестировании. Данные полей вводятся при создании теста
-     */
-    String siteTest = "https://test.uxcrowd.ru/";
 
     public RegistrationTesterTest() throws IOException {}
 
@@ -53,7 +47,6 @@ public class RegistrationTesterTest {
         inputEmailStep();
         step("Проверяем правильность ввода в поле \"Почта\"", () -> {
             Assert.assertTrue(registrationTester.getRegistrationEmailField().getText().equals(emailTest),"Input mail exception");
-//            Assert.assertTrue(emailTest.equals(registrationTester.getRegistrationEmailField().getText()),"Input email exception");
         });
         new WebDriverWait(driver, timeWait).withMessage("Click register exception")
                 .until((d) -> registrationTester.getRegistrationEmailField().getText().equals(emailTest));

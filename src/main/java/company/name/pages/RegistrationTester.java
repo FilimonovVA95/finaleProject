@@ -3,7 +3,6 @@ package company.name.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author Akmataliev Almaz
@@ -13,11 +12,10 @@ public class RegistrationTester extends AbstractPage {
 
     private String testStand;
     private WebDriver driver;
-    private int timeWait = 10000;
 
     /**
-     *
-     * @param driver
+     * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
+     * @param driver вебдрайвер с которым мы работаем
      */
     public RegistrationTester(WebDriver driver) {
         super(driver);
@@ -31,8 +29,8 @@ public class RegistrationTester extends AbstractPage {
     @FindBy(css = "[for=registrationLk]")           // кнопка регистрации нового пользователя
     private WebElement startRegistrationButton;
 
-    @FindBy(css = "[ng-tr=\"WHE.WHE23\"]")
-    private WebElement forgotPassword;              // кнопка "Забыли пароль"
+    @FindBy(css = "[ng-tr=\"WHE.WHE23\"]")          // кнопка "Забыли пароль"
+    private WebElement forgotPassword;
 
     @FindBy(css = "[ng-tr=\"WHE1.WHE13\"]")         // кнопка регистрации тестировщика
     private WebElement startRegistrationTesterButton;
@@ -40,85 +38,97 @@ public class RegistrationTester extends AbstractPage {
     @FindBy(id = "emails")                          // поле ввода email
     private WebElement registrationEmailField;
 
-    @FindBy(css = "[ng-tr=\"WHE.WHE26\"]")
-    private WebElement clickFinishRegistration;     // кнопка регистрации
+    @FindBy(css = "[ng-tr=\"WHE.WHE26\"]")          // кнопка регистрации
+    private WebElement clickFinishRegistration;
 
-    @FindBy(id = "Галочка")
-    private WebElement check;                       // Проверка что клиент зарегистрирован
+    @FindBy(id = "Галочка")                         // Проверка что клиент зарегистрирован
+    private WebElement check;
 
     @FindBy(css = "[ng-tr=\"WHE1.WHE4\"]")          // Кнопка войти в аккаунт
     private WebElement clickLogIn;
 
-    @FindBy(id = "login")
-    private WebElement loginFiled;                  //поле для ввода логина при входе
+    @FindBy(id = "login")                           //поле для ввода логина при входе
+    private WebElement loginFiled;
 
-    @FindBy(css = "[type=password]")
-    private WebElement passwordField;               //поле для ввода пароля
+    @FindBy(css = "[type=password]")                //поле для ввода пароля
+    private WebElement passwordField;
 
-    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"")
-    private WebElement inButton;                    // кнопка для входа в аккаунт
+    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"")           // кнопка для входа в аккаунт
+    private WebElement inButton;
 
     @FindBy(id = "logout")                          // Кнопка выйти
     private WebElement clickLogOut;
 
 
     /**
-     *
+     * открыть тестовый стенд
      */
     public void openTestStand(){
         driver.get(testStand);
     }
 
     /**
-     *
+     * открыть окно авторизации
      */
     public void openPopUp(){
         loginButton.click();
     }
 
     /**
-     *
+     * открыть окно регистрации
      */
     public void clickRegistration() {
         startRegistrationButton.click();
     }
 
     /**
-     *
+     * начать регистрацию тестера
      */
     public void inputRegistrationTester(){
         startRegistrationTesterButton.click();
     }
 
     /**
-     *
-     * @param email
+     * ввести email для регистрации
+     * @param email почта для регистрации
      */
     public void inputEmail(String email){
         registrationEmailField.sendKeys(email);
     }
 
     /**
-     *
+     * завершить регистрацию
      */
     public void clickFinishRegistrationOnFieldRegistration()
     {
         clickFinishRegistration.click();
     }
+
     /**
-     * авторизация Тестера
+     * ввести email для авторизации
+     * @param email почта, использованная для регистрации
      */
-    public void logIn(String email, String password){
-        loginButton.click();
-        new WebDriverWait(driver, timeWait).withMessage("Click register exception")
-                .until((d) -> startRegistrationButton.isDisplayed());
-        loginFiled.sendKeys(email);
-        passwordField.sendKeys(password);
-        inButton.click();
+    public void inputEmailTester (String email) {
+        getLoginFiled().sendKeys(email);
     }
 
     /**
-     *
+     * ввести пароль для авторизации
+     * @param password пароль, полученный из письма
+     */
+    public void inputPasswordTester (String password) {
+        getPasswordField().sendKeys(password);
+    }
+
+    /**
+     * войти в личный кабинет
+     */
+    public void logInClick() {
+        getInButton().click();
+    }
+
+    /**
+     * выйти из личного кабинета
      */
     public void logOut(){
         clickLogOut.click();
@@ -155,10 +165,6 @@ public class RegistrationTester extends AbstractPage {
 
     public WebElement getCheck() {
         return check;
-    }
-
-    public WebElement getClickLogIn() {
-        return clickLogIn;
     }
 
     public WebElement getLoginFiled() {

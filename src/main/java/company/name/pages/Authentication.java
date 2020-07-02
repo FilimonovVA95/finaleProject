@@ -1,17 +1,19 @@
 package company.name.pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-/**
- *
- * @author Акматалиев Алмаз
- */
 
 /**
  * класс для авторизации
+ * @author Акматалиев Алмаз
  */
-public class Authentication {
+public class Authentication extends AbstractPage {
+
+    private String testStand;
+    private WebDriver driver;
+    private int timeWait = 5;
 
     @FindBy(id = "header-lk-button")            //кнопка открытия окна авторизации
     private WebElement loginButton;
@@ -29,6 +31,24 @@ public class Authentication {
     private WebElement clickLogOut;
 
     /**
+     * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
+     *
+     * @param driver вебдрайвер с которым мы работаем
+     */
+    public Authentication (WebDriver driver) {
+        super(driver);
+        this.testStand = super.testStand;
+        this.driver = driver;
+    }
+
+    /**
+     * открыть тестовый стенд
+     */
+    public void openTestStand(){
+        driver.get(testStand);
+    }
+
+    /**
      * открыть всплывающее окно входа
      */
     public void openPopUp() {
@@ -38,7 +58,7 @@ public class Authentication {
     /**
      * ввести email
      */
-    public void inputEmail(String email){
+    public void inputEmail (String email){
         loginFiled.sendKeys(email);
     }
 

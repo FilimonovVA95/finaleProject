@@ -3,7 +3,6 @@ package company.name.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author Akmataliev Almaz
@@ -13,11 +12,10 @@ public class RegistrationClient extends AbstractPage {
 
     private String testStand;
     private WebDriver driver;
-    private int timeWait = 3000;
 
     /**
-     *
-     * @param driver
+     * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
+     * @param driver вебдрайвер с которым мы работаем
      */
     public RegistrationClient(WebDriver driver) {
         super(driver);
@@ -25,53 +23,53 @@ public class RegistrationClient extends AbstractPage {
         this.driver = driver;
     }
 
-    @FindBy(id = "header-lk-button")   //кнопка открытия окна входа
+    @FindBy(id = "header-lk-button")                                //кнопка открытия окна входа
     private WebElement loginButton;
 
-    @FindBy(css = "[for=registrationLk]") // кнопка регистрации нового пользователя
+    @FindBy(css = "[for=registrationLk]")                           //кнопка регистрации нового пользователя
     private WebElement startRegistrationButton;
 
-    @FindBy(css = "[ng-tr=\"WHE1.WHE12\"]")// кнопка зарегистрировать клиента
+    @FindBy(css = "[ng-tr=\"WHE1.WHE12\"]")                         //кнопка зарегистрировать клиента
     private WebElement newRegistrationClientButton;
 
-    @FindBy(css = "[ng-tr=\"WHE.WHE23\"]") // кнопка "Забыли пароль"
+    @FindBy(css = "[ng-tr=\"WHE.WHE23\"]")                          //кнопка "Забыли пароль"
     private WebElement forgotPassword;
     
-    @FindBy(id = "name")
-    private WebElement registrationNameField;       //поле для ввода имени
+    @FindBy(id = "name")                                            //поле для ввода имени
+    private WebElement registrationNameField;
 
-    @FindBy(id = "position")
-    private WebElement registrationPositionField;       //поле для ввода должности
+    @FindBy(id = "position")                                        //поле для ввода должности
+    private WebElement registrationPositionField;
 
-    @FindBy(id = "company")
-    private WebElement registrationCompanyField;       //поле для ввода компания
+    @FindBy(id = "company")                                         //поле для ввода компания
+    private WebElement registrationCompanyField;
 
-    @FindBy(id = "emails")
-    private WebElement registrationEmailField;       //поле для ввода емайла
+    @FindBy(id = "emails")                                          //поле для ввода емайла
+    private WebElement registrationEmailField;
 
-    @FindBy(id = "phoneNumber")
-    private WebElement registrationPhoneNumberField;       //поле для ввода номера телефона
+    @FindBy(id = "phoneNumber")                                     //поле для ввода номера телефона
+    private WebElement registrationPhoneNumberField;
 
-    @FindBy(id = "site")
-    private WebElement registrationSiteField;       //поле для ввода ссылки на сайт
+    @FindBy(id = "site")                                            //поле для ввода ссылки на сайт
+    private WebElement registrationSiteField;
 
-    @FindBy(css = "[ng-tr=\"WHE.WHE26\"]") //кнопка "Зарегистрироваться" клиента
+    @FindBy(css = "[ng-tr=\"WHE.WHE26\"]")                          //кнопка "Зарегистрироваться" клиента
     private WebElement registrationClientOnFieldRegistration;
 
-    @FindBy(id = "Галочка")
-    private WebElement check; // Проверка что клиент зарегистрирован
+    @FindBy(id = "Галочка")                                         //проверка что клиент зарегистрирован
+    private WebElement check;
 
-    @FindBy(id = "login")
-    private WebElement loginFiled;         //поле для ввода логина при входе
+    @FindBy(id = "login")                                           //поле для ввода логина при входе
+    private WebElement loginFiled;
 
-    @FindBy(css = "[type=password]")
-    private WebElement passwordField;           //поле для ввода пароля
+    @FindBy(css = "[type=password]")                                //поле для ввода пароля
+    private WebElement passwordField;
 
-    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"")
-    private WebElement inButton;            // кнопка для входа в аккаунт
+    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"")                           //кнопка для входа в аккаунт
+    private WebElement inButton;
 
-    @FindBy(id = "logout")
-    private WebElement logout;      //кнопка выхода после успешного входа
+    @FindBy(id = "logout")                                          //кнопка выхода после успешного входа
+    private WebElement logout;
 
     /**
      * нажатие кнопки входа на стартовой странице
@@ -109,7 +107,7 @@ public class RegistrationClient extends AbstractPage {
     }
 
     /**
-     * ввод в поле имя номпании
+     * ввод в поле имя компании
      */
     public void inputCompanyName(String companyName) {
         registrationCompanyField.sendKeys(companyName);
@@ -130,7 +128,7 @@ public class RegistrationClient extends AbstractPage {
     }
 
     /**
-     * ввод в поле адресс
+     * ввод в поле адрес
      */
     public void inputSite(String site) {
         registrationSiteField.sendKeys(site);
@@ -144,15 +142,26 @@ public class RegistrationClient extends AbstractPage {
     }
 
     /**
-     * авторизация клиента
+     * вводим email клиента для авторизации
+     * @param emailTest email пользователя
      */
-    public void logIn(String email, String password){
-        loginButton.click();
-        new WebDriverWait(driver, timeWait).withMessage("Click register exception")
-                .until((d) -> startRegistrationButton.isDisplayed());
-        loginFiled.sendKeys(email);
-        passwordField.sendKeys(password);
-        inButton.click();
+    public void inputEmailClient(String emailTest) {
+        getLoginFiled().sendKeys(emailTest);
+    }
+
+    /**
+     * вводим email пароль для авторизации
+     * @param passwordTest пароль пользователя
+     */
+    public void inputPasswordClient(String passwordTest){
+        getPasswordField().sendKeys(passwordTest);
+    }
+
+    /**
+     * нажимает кнопку входа в аккаунт
+     */
+    public void logInClient() {
+        getInButton().click();
     }
 
     /**
@@ -173,10 +182,6 @@ public class RegistrationClient extends AbstractPage {
     /**
      * Геттеры для вебэлементов
      */
-
-    public String getTestStand() {
-        return testStand;
-    }
 
     public WebDriver getDriver() {
         return driver;

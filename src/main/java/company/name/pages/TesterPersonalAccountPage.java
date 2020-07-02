@@ -31,8 +31,8 @@ public class TesterPersonalAccountPage extends AbstractPage {
     private WebElement exitButton;
 
     /**
-     *
-     * @param driver
+     * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
+     * @param driver вебдрайвер с которым мы работаем
      */
     public TesterPersonalAccountPage(WebDriver driver) {
         super(driver);
@@ -41,7 +41,7 @@ public class TesterPersonalAccountPage extends AbstractPage {
     }
 
     /**
-     *
+     * Поля для входа в личный кабинет, тестовый стенд и драйвер
      */
     private String testStand;
     private WebDriver driver;

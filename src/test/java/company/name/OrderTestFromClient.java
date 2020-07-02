@@ -17,13 +17,13 @@ import static io.qameta.allure.Allure.step;
 
 /**
  * Класс теста проверки функционала клиента. Проверяет возможность заказать новый тест
- * @see company.name.pages.ClientOrderTest
+ * @see ClientOrderTest
  * @author Филимонов Виктор
  */
 public class OrderTestFromClient {
 
     /**
-     * Поля вебдрайвера и страницы, которую тестируем
+     * Поля вебдрайвера и ресурса, который тестируем
      */
     private WebDriver driver = DriverManager.getDriver();
     private ClientOrderTest clientOrderTest = new ClientOrderTest(driver);
@@ -122,8 +122,9 @@ public class OrderTestFromClient {
         step("Проверяем активность кнопки \"Вход\"", () -> {
             Assert.assertTrue( clientOrderTest.getLoginButton().isEnabled(), "Logout exception");
         });
-    }
 
+        DriverManager.quit();
+    }
 
     @Step("Открыть тестовый стенд")
     private void openTestStandStep() {
@@ -222,7 +223,7 @@ public class OrderTestFromClient {
     }
 
     /**
-     * Метод для получения скриншота и сохранения его в папке creenShots
+     * Метод для получения скриншота и сохранения его в папке screenShots
      */
     private void screenShotStep() {
         TakesScreenshot ts = (TakesScreenshot) driver;

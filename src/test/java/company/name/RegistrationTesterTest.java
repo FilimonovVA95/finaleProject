@@ -1,89 +1,96 @@
 package company.name;
 
 import company.name.pages.OneOffMailPageThroughRequests;
+import company.name.pages.RegistrationClient;
 import company.name.pages.RegistrationTester;
 import io.qameta.allure.Step;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import static io.qameta.allure.Allure.step;
 
+/**
+ * Класс теста регистрации тестера
+ * @see RegistrationClient
+ * @see OneOffMailPageThroughRequests
+ */
 public class RegistrationTesterTest {
-    final String emailTest = OneOffMailPageThroughRequests.getNewEmail();
-    private int timeWait = 5000;
+    private String emailTest = OneOffMailPageThroughRequests.getNewEmail();
 
-    WebDriver driver = DriverManager.getDriver();
-    RegistrationTester registrationTester = new RegistrationTester(driver);
-    String passwordTest;
-
-
-    public RegistrationTesterTest() throws IOException {}
+    private WebDriver driver = DriverManager.getDriver();
+    private RegistrationTester registrationTester = new RegistrationTester(driver);
+    private String passwordTest;
 
     @Test
-    public void registrationTesterTest() throws IOException, InterruptedException {
+    public void registrationTesterTest() {
+
         openTestStandStep();
         step("Проверяем активность кнопки \"Войти\"", () -> {
             Assert.assertTrue(registrationTester.getLoginButton().isEnabled(), "Open test stand exception");
         });
+
         openPopUpStep();
-        new WebDriverWait(driver, timeWait).withMessage("Click register exception")
-                .until((d) -> registrationTester.getStartRegistrationButton().isDisplayed());
         step("Проверяем активность кнопки \"Забыли пароль\"", () -> {
             Assert.assertTrue(registrationTester.getForgotPassword().isEnabled(), "The \"Forgot Password\" button is inactive");
         });
+
         clickRegistrationStep();
         step("Проверяем активность кнопки \"Стать Тестировщиком\"", () -> {
             Assert.assertTrue(registrationTester.getStartRegistrationTesterButton().isEnabled(),"Button registration tester exception");
         });
+
         clickRegistrationTesterStep();
         step("Проверяем активность кнопки \"Зарегистрироваться\"", () -> {
             Assert.assertTrue(registrationTester.getClickFinishRegistration().isEnabled(),"Click finish registration exception");
         });
+
         inputEmailStep();
         step("Поле заполненно почтой", () -> {
             Assert.assertTrue(registrationTester.getRegistrationEmailField().getAttribute("value").equals(emailTest), "\"Mail\" field is empty");
         });
+
         clickFinishRegistrationStep();
-        step("Элемент \"галочка\" активна");
-        Assert.assertTrue(registrationTester.getCheck().isEnabled(), "\"Checkmark\" not active");
+        step("Элемент \"галочка\" активна", () -> {
+            Assert.assertTrue(registrationTester.getCheck().isEnabled(), "\"Checkmark\" not active");
+        });
 
         loginButtonClickStep();
         passwordTest = OneOffMailPageThroughRequests.getPassword();
         step("Проверяем активность кнопки \"Зарегистрироватся\"", () -> {
             Assert.assertTrue(registrationTester.getStartRegistrationButton().isEnabled(), "\"Register\" button is not active");
         });
-        loginFieldStep();
+
+        loginFieldStep(emailTest);
         step("Поле заполненно почтой", () -> {
             Assert.assertTrue(registrationTester.getLoginFiled().getAttribute("value").equals(emailTest), "\"Mail\" field is empty");
         });
-        passwordFieldStep();
+
+        passwordFieldStep(passwordTest);
         step("Поле заполненно паролем", () -> {
             Assert.assertTrue(registrationTester.getPasswordField().getAttribute("value").equals(passwordTest), "\"Password\" field is empty");
         });
+
         inButtonStep();
         step("Проверяем активность кнопки \"Выйти\"", () -> {
             Assert.assertTrue(registrationTester.getClickLogOut().isEnabled(), "\"Login\" button not active");
         });
+
         logOutStep();
         step("Проверяем активность кнопки \"Войти\"", () -> {
             Assert.assertTrue(registrationTester.getLoginButton().isEnabled(), "\"Logout\" button not active");
         });
 
+        OneOffMailPageThroughRequests.deleteEmail();
+        DriverManager.quit();
     }
+
     @Step("Открыть тестовый стенд")
     private void openTestStandStep() {
         registrationTester.openTestStand();
@@ -127,20 +134,20 @@ public class RegistrationTesterTest {
     }
 
     @Step("Ввести в поле \"Почта\" почту")
-    private void loginFieldStep(){
-        registrationTester.getLoginFiled().sendKeys(emailTest);
+    private void loginFieldStep(String emailTest){
+        registrationTester.inputEmailTester(emailTest);
         screenShotStep();
     }
 
     @Step("Ввести в поле \"Пароль\" пароль")
-    private void passwordFieldStep(){
-        registrationTester.getPasswordField().sendKeys(passwordTest);
+    private void passwordFieldStep(String passwordTest){
+        registrationTester.inputPasswordTester(passwordTest);
         screenShotStep();
     }
 
     @Step("Нажать кнопку \"Войти\"")
     private void inButtonStep(){
-        registrationTester.getInButton().click();
+        registrationTester.logInClick();
         screenShotStep();
     }
 
@@ -151,14 +158,14 @@ public class RegistrationTesterTest {
     }
 
     /**
-     * Метод для получения скриншота и сохранения его в папке creenShots
+     * Метод для получения скриншота и сохранения его в папке screenShots
      */
     private void screenShotStep() {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File screen = ts.getScreenshotAs(OutputType.FILE);
-        String screenName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String screenName = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
         try {
-            FileUtils.copyFile(screen, new File("./ScreenShots/"+screenName+"Screenshot.png"));
+            FileUtils.copyFile(screen, new File("./ScreenShots/"+screenName+"_Screenshot.png"));
         } catch (IOException e) {
             System.out.println("Exception while taking ScreenShot "+e.getMessage());
             e.printStackTrace();

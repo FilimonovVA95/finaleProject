@@ -10,7 +10,7 @@ import java.net.URL;
  * Класс для работы с временной почтой. Все методы статические. Используются GET запросы. Доступно не более 5 ящиков
  * для одного пользователя одновременно. Время жизни одного ящика - 10 минут. Чтобы создавать еще ящики
  * удаляйте предыдущий с помощью метода deleteEmail() перед созданием нового
- * @Author Филимонов Виктор
+ * @author Филимонов Виктор
  */
 public class OneOffMailPageThroughRequests {
 
@@ -40,16 +40,22 @@ public class OneOffMailPageThroughRequests {
      * @return строку адреса новой почты
      * @throws IOException используется класс URL
      */
-    public static String getNewEmail() throws IOException {
+    public static String getNewEmail() {
+        URL urlToNewEmail;
+        String[] stringWithEmail;
 
-        URL UrlToNewEmail = new URL(stringUrl + "action=new");
+        try {
+            urlToNewEmail = new URL(stringUrl + "action=new");
+            stringWithEmail = getStringReturn(urlToNewEmail).split(" ");
 
-        String[] stringWithEmail = getStringReturn(UrlToNewEmail).split(" ");
-
-        email = stringWithEmail[1].replace("Key:", "");
-        keyEmail = stringWithEmail[2];
-        password = null;
-
+            email = stringWithEmail[1].replace("Key:", "");
+            keyEmail = stringWithEmail[2];
+            password = null;
+    }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Getting mail exception");
+    }
         System.out.println(email);
         System.out.println(keyEmail);
 
@@ -59,45 +65,56 @@ public class OneOffMailPageThroughRequests {
     /**
      * Возвращает пароль текущего ящика
      * @return возвращает строку с паролем для текущего почтового ящика
-     * @throws IOException используется класс URL
      */
-    public static String getPassword() throws IOException {
+    public static String getPassword() {
         if (password != null)
             return password;
 
-        URL UrlWaitPassword = new URL(stringUrl + "action=getlist&key=" + keyEmail);
+        URL urlWaitPassword;
+        try {
+            urlWaitPassword = new URL(stringUrl + "action=getlist&key=" + keyEmail);
 
-        for (int i = 0; i < timeWaitEmail; i ++) {
-            String stringWithEmail = getStringReturn(UrlWaitPassword);
+            for (int i = 0; i < timeWaitEmail; i ++) {
+                String stringWithEmail = getStringReturn(urlWaitPassword);
 
-            if(!stringWithEmail.equals("Error: The list is empty.")) { break; }
+                if(!stringWithEmail.equals("Error: The list is empty.")) { break; }
 
-            System.out.println(stringWithEmail);
+                System.out.println(stringWithEmail);
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
+            URL UrlToPasswordByKey = new URL(stringUrl + "action=getmail&key=" + keyEmail + "&id=1&forced=1");
+
+            String mailString = getStringReturn(UrlToPasswordByKey);
+            String[] stringWithPassword = mailString.split("<p>");
+
+            password = stringWithPassword[5].replace("</p>", "").split(" ")[1];
         }
-
-        URL UrlToPasswordByKey = new URL(stringUrl + "action=getmail&key=" + keyEmail + "&id=1&forced=1");
-
-        String mailString = getStringReturn(UrlToPasswordByKey);
-        String[] stringWithPassword = mailString.split("<p>");
-
-        password = stringWithPassword[5].replace("</p>", "").split(" ")[1];
+        catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("Getting password exception");
+    }
         return password;
     }
 
     /**
      * Удаляет текущую используемую почту
-     * @throws IOException используется класс URL
      */
-    public static void deleteEmail() throws IOException {
-        URL UrlToDeleteEmail = new URL(stringUrl + "action=delete&key=" + keyEmail);
-        HttpURLConnection connection = (HttpURLConnection) UrlToDeleteEmail.openConnection();
-        connection.setRequestMethod("GET");
+    public static void deleteEmail() {
+        try{
+            URL UrlToDeleteEmail = new URL(stringUrl + "action=delete&key=" + keyEmail);
+            HttpURLConnection connection = (HttpURLConnection) UrlToDeleteEmail.openConnection();
+            connection.setRequestMethod("GET");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Delete email exception");
+        }
         email = null;
         keyEmail = null;
         password = null;
@@ -107,23 +124,27 @@ public class OneOffMailPageThroughRequests {
      * Принимает URL GET запроса и возвращает строку ответа
      * @param url URL запроса для получения ответа
      * @return строку ответа на GET запрос
-     * @throws IOException используется класс URL
      */
-    private static String getStringReturn (URL url) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setConnectTimeout(30000);
-        connection.setDoOutput(true);
-
+    private static String getStringReturn (URL url) {
         String line;
         String result = "";
+        try {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(30000);
+            connection.setDoOutput(true);
 
-        BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(connection.getInputStream())));
+            BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(connection.getInputStream())));
 
-        while ((line = bufferedReader.readLine()) != null) {
-            result += line;
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            bufferedReader.close();
         }
-        bufferedReader.close();
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Response from GET request exception");
+        }
         return result;
     }
 }

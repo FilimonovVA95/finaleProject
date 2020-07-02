@@ -15,7 +15,7 @@ public class ClientOrderTest extends AbstractPage {
     private String testStand;
     private WebDriver driver;
     private int timeWait = 5;
-    private String login = "tisise5283@mailres.net"; // Почти заранее зарагестрированного пользователя
+    private String login = "tisise5283@mailres.net"; // Почта заранее зарагестрированного пользователя
     private String password = "OXvpUm"; // Пароль от личного кабинета клиента
 
     @FindBy(id = "header-lk-button")

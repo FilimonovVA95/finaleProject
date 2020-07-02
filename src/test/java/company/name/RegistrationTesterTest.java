@@ -19,21 +19,16 @@ import static io.qameta.allure.Allure.step;
 public class RegistrationTesterTest {
     final String emailTest = OneOffMailPageThroughRequests.getNewEmail();
 //    final String passwordTest= OneOffMailPageThroughRequests.getPassword();
-    private int timeWait = 5000;
+    private int timeWait = 10;
 
     WebDriver driver = DriverManager.getDriver();
     RegistrationTester registrationTester = new RegistrationTester(driver);
     String passwordTest;
 
-    /**
-     * Поля переменных, необходимых при тестировании. Данные полей вводятся при создании теста
-     */
-    String siteTest = "https://test.uxcrowd.ru/";
-
     public RegistrationTesterTest() throws IOException {}
 
     @Test
-    public void registrationTesterTest() throws IOException, InterruptedException {
+    public void registrationTesterTest() throws IOException {
         openTestStandStep();
         step("Проверяем активность кнопки \"Войти\"", () -> {
             Assert.assertTrue(registrationTester.getLoginButton().isEnabled(), "Open test stand exception");
@@ -81,26 +76,32 @@ public class RegistrationTesterTest {
     public void openPopUpStep(){
         registrationTester.openPopUp();
     }
+
     @Step("Открыть окно регистрации")
     public void clickRegistrationStep(){
         registrationTester.clickRegistration();
     }
+
     @Step("Начать регистрацию тестера")
     public void clickRegistrationTesterStep(){
         registrationTester.inputRegistrationTester();
     }
+
     @Step("Ввести емайл для регистрации")
     public void inputEmailStep(){
         registrationTester.inputEmail(emailTest);
     }
+
     @Step("Завершить регистрацию")
     public void clickFinishRegistrationStep() {
         registrationTester.clickFinishRegistration();
     }
+
     @Step("Войти в зарегестрированный профиль")
     public void logInStep(){
         registrationTester.logIn(emailTest, passwordTest);
     }
+
     @Step("Выйти из зарегестрированного профиля")
     public void logOutStep(){
         registrationTester.logOut();

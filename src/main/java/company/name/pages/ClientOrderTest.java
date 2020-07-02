@@ -1,8 +1,10 @@
 package company.name.pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @Author Aleksander Dmitriev
@@ -12,59 +14,79 @@ public class ClientOrderTest extends AbstractPage {
 
     private String testStand;
     private WebDriver driver;
-    private String login; // здесь надо ввести нужный логин
-    private String password; // здесь нужно ввести нужный пароль
+    private int timeWait = 5;
+    private String login = "tisise5283@mailres.net"; // Почти заранее зарагестрированного пользователя
+    private String password = "OXvpUm"; // Пароль от личного кабинета клиента
 
     @FindBy(id = "header-lk-button")
-    private WebElement loginButton;
+    private WebElement loginButton;             // Открыть окно авторизации
 
     @FindBy(id = "login")
-    private WebElement loginFiled;
+    private WebElement loginFiled;              // Поле ввода email
 
     @FindBy(css = "[type=password]")
-    private WebElement passwordField;
+    private WebElement passwordField;           // Поле ввода пароля
 
     @FindBy(css = "[ng-tr=\"WHE1.WHE4\"]")
-    private WebElement submitButton;
+    private WebElement submitButton;            // Кнопка авторизации
 
     @FindBy(id = "logout")
-    private WebElement exitButton;
+    private WebElement exitButton;              // Кнопка выхода
 
-    @FindBy(css = "MuiButton-label")
-    private WebElement createTest;
+    @FindBy(className = "new_test")
+    private WebElement createTest;              // Открыть окно создания нового теста
 
-    @FindBy(css = "data-autotest-id=\"text_input_testNameInput\"")
-    private WebElement testName;
+    @FindBy(css = "[data-testid=\"Test name input\"]")
+    private WebElement testNameField;           // Поле ввода названия теста
 
-    @FindBy(css = "data-autotest-id=\"text_input_testTargetURL\"")
-    private WebElement siteName;
+    @FindBy(css = "[data-testid=\"Address site input\"]")
+    private WebElement siteNameField;           // Поле ввода тестируемого сайта
 
-    @FindBy(css = "data-autotest-id=\"text_input_testDescriptionTextarea\"")
-    private WebElement informationField;
+    @FindBy(css = "[data-testid=\"Information textarea\"]")
+    private WebElement informationField;        // Поле ввода информации для респондента
 
-    @FindBy(css = "class=\"sc-bxivhb bJUtjD\"")
-    private WebElement toPeopleGroup;
+    @FindBy(css = "[data-testid=\"Submit button\"]")
+    private WebElement toPeopleGroup;           // Кнопка перехода к выбору аудитории
 
-    @FindBy(css = "data-autotest-id=\"text_input_groupName_0\"")
-    private WebElement peopleGroup;
+    @FindBy(css = "[data-testid=\"Segment name input 0\"]")
+    private WebElement segmentNameField;        // Поле для ввода названия сегмента
 
-    @FindBy(css = "bJUtjD")
-    private WebElement taskClick;
+    @FindBy(css = "[data-testid=\"Tasks button\"]")
+    private WebElement taskClick;               // Кнопка перехода к заданиям
 
-    @FindBy(css = "data-autotest-id=\"text_input_tasks_task_question\"")
-    private WebElement addTask;
+    @FindBy(css = "[data-testid=\"Tasks task question\"]")
+    private WebElement taskField;               // Поле для ввода вопросов
 
-    @FindBy(css = "data-autotest-id=\"tasks_submit_task\"")
-    private WebElement confirmButton;
+    @FindBy(css = "[data-testid=\"Tasks submit task\"]")
+    private WebElement addTask;                 // Кнопка добавления задания
 
-    @FindBy(css = "class=\"sc-bxivhb bJUtjD\"")
-    private WebElement commitButton;
+    @FindBy(css = "[fill=\"url(#trashIconPattern)\"]")
+    private WebElement checkTaskDelete;         // Кнопка удаления задания
 
-    @FindBy(css = "data-autotest-id=\"checkout_start_button\"")
-    private WebElement runFree;
+    @FindBy(css = "[data-testid=\"Check button\"]")
+    private WebElement checkAndRunButton;        // Кнопка перехода к проверке и запуску теста
 
-    @FindBy(css = "class=\"sc-bxivhb iaxSpn\"")
-    private WebElement testList;
+    @FindBy(css = "[data-testid=\"Checkout start button\"]")
+    private WebElement runFreeTestButton;        // Запуск бесплатного теста
+
+    @FindBy(css = "[class=\"sc-gPWkxV dwPzxl\"] [class=\"sc-bxivhb bJUtjD\"]")
+    private WebElement checkCreateOneMoreTest;   // Кнопка создания еще одного теста
+
+    @FindBy(css = ":nth-child(2).iaxSpn")
+    private WebElement testListClick;            // Перейти к списку тестов
+
+    @FindBy(xpath = "//tr[1]//td[1]//a[1]//span[1]//span[1]")
+    private WebElement checkLastTestName;        // Проверка имени последнего теста
+
+    @FindBy(linkText = "Завершить")
+    private WebElement deleteLastTest;           // Закрытие последнего теста
+
+    @FindBy(className = "irdQhg")
+    private WebElement yesDeleteButtonClick;     // Подтвердить закрытие теста
+
+    @FindBy(xpath = "//div[5]//span[2]")
+    private WebElement checkDeleteLastTest;      // Проверка закрытия последнего теста
+
 
 
     /**
@@ -90,6 +112,10 @@ public class ClientOrderTest extends AbstractPage {
      */
     public void logIn() {
         loginButton.click();
+
+        new WebDriverWait(driver, timeWait).withMessage("Click logIn exception")
+                .until((d) -> submitButton.isDisplayed());
+
         loginFiled.sendKeys(login);
         passwordField.sendKeys(password);
         submitButton.click();
@@ -115,7 +141,7 @@ public class ClientOrderTest extends AbstractPage {
      * @param nameTest - само название теста
      */
     public void inputNameTest(String nameTest) {
-        testName.sendKeys(nameTest);
+        testNameField.sendKeys(nameTest);
     }
 
     /**
@@ -124,7 +150,7 @@ public class ClientOrderTest extends AbstractPage {
      * @param SiteTest - имя тестируемого сайта
      */
     public void inputSiteTest(String SiteTest) {
-        siteName.sendKeys(SiteTest);
+        siteNameField.sendKeys(SiteTest);
     }
 
     /**
@@ -133,7 +159,11 @@ public class ClientOrderTest extends AbstractPage {
      * @param information - информация для респондента
      */
     public void inputIntroductoryInformation(String information) {
-        this.informationField.sendKeys(information);
+
+        String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE;
+        informationField.sendKeys(del);
+
+        informationField.sendKeys(information);
     }
 
     /**
@@ -149,7 +179,7 @@ public class ClientOrderTest extends AbstractPage {
      * @param segmentName - имя тестовой группы
      */
     public void inputSegmentName(String segmentName) {
-        peopleGroup.sendKeys(segmentName);
+        segmentNameField.sendKeys(segmentName);
     }
 
     /**
@@ -165,35 +195,44 @@ public class ClientOrderTest extends AbstractPage {
      * @param task - задание тестерам
      */
     public void inputTask(String task) {
-        addTask.sendKeys(task);
+        taskField.sendKeys(task);
     }
 
     /**
      * подтверждение добавления задания
      */
     public void clickAddTask() {
-        confirmButton.click();
+        addTask.click();
     }
 
     /**
      * проверка и запуск теста
      */
     public void clickCheckAndRun() {
-        commitButton.click();
+        checkAndRunButton.click();
     }
 
     /**
      * запуск бесплатного теста
      */
     public void clickRunFreeTest() {
-        runFree.click();
+        runFreeTestButton.click();
     }
 
     /**
      * переход к списку тестов
      */
     public void clickGoToListTests() {
-        testList.click();
+        testListClick.click();
+    }
+
+    /**
+     * закрываем тест
+     */
+    public void closeTest() {
+        checkLastTestName.click();
+        deleteLastTest.click();
+        yesDeleteButtonClick.click();
     }
 
     /**
@@ -208,52 +247,55 @@ public class ClientOrderTest extends AbstractPage {
         return exitButton;
     }
 
-    public WebElement getCreateTest() {
-        return createTest;
+    public WebElement getTestNameField() {
+        return testNameField;
     }
 
-    public WebElement getTestName() {
-        return testName;
-    }
-
-    public WebElement getSiteName() {
-        return siteName;
+    public WebElement getSiteNameField() {
+        return siteNameField;
     }
 
     public WebElement getInformationField() {
-        return this.informationField;
+        return informationField;
     }
 
     public WebElement getToPeopleGroup() {
         return toPeopleGroup;
     }
 
-    public WebElement getPeopleGroup() {
-        return peopleGroup;
+    public WebElement getSegmentNameField() {
+        return segmentNameField;
     }
 
     public WebElement getTaskClick() {
         return taskClick;
     }
 
-    public WebElement getAddTask() {
-        return addTask;
+    public WebElement getTaskField() {
+        return taskField;
     }
 
-    public WebElement getNest() {
-        return confirmButton;
+    public WebElement getCheckTaskDelete() {
+        return checkTaskDelete;
     }
 
-    public WebElement getCommitButton() {
-        return commitButton;
+    public WebElement getCheckAndRunButton() {
+        return checkAndRunButton;
     }
 
-    public WebElement getRunFree() {
-        return runFree;
+    public WebElement getRunFreeTestButton() {
+        return runFreeTestButton;
     }
 
-    public WebElement getTestList() {
-        return testList;
+    public WebElement getCheckCreateOneMoreTest() {
+        return checkCreateOneMoreTest;
     }
 
+    public WebElement getCheckLastTestName() {
+        return checkLastTestName;
+    }
+
+    public WebElement getCheckDeleteLastTest() {
+        return checkDeleteLastTest;
+    }
 }

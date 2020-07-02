@@ -5,7 +5,11 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  *
- * @author
+ * @author Акматалиев Алмаз
+ */
+
+/**
+ * класс для авторизации
  */
 public class Authentication {
 

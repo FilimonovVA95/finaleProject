@@ -108,7 +108,7 @@ public class ClientOrderTest extends AbstractPage {
     }
 
     /**
-     * окно входа в личный кабинет
+     * вход в личный кабинет
      */
     public void logIn() {
         loginButton.click();

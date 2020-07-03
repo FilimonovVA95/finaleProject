@@ -18,7 +18,7 @@ import static io.qameta.allure.Allure.step;
 /**
  * Класс теста регистрации клиента
  * @author Akmataliev Almaz
- * @see RegistrationClient
+ * @see company.name.pages.RegistrationClient
  * @see OneOffMailPageThroughRequests
  */
 public class RegistrationClientTest {

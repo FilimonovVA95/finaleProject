@@ -3,7 +3,6 @@ package company.name.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Класс личного кабинета пользователя
@@ -16,19 +15,19 @@ public class ClientPersonalAccountPage extends AbstractPage {
      */
 
     @FindBy(id = "header-lk-button")
-    private WebElement loginButton;             //Кнопка открытия окна входа
+    private WebElement loginButton;                     //Кнопка открытия окна входа
 
     @FindBy(id = "login")
-    private WebElement loginFiled;              //Поле для ввода логина при входе
+    private WebElement loginFiled;                      //Поле для ввода логина при входе
 
-    @FindBy(css = "[for=registrationLk]") // кнопка регистрации нового пользователя
-    private WebElement startRegistrationButton;
+    @FindBy(css = "[for=registrationLk]")
+    private WebElement startRegistrationButton;         //Кнопка регистрации нового пользователя
 
     @FindBy(css = "[type=password]")
-    private WebElement passwordField;           //Поле для ввода пароля
+    private WebElement passwordField;                   //Поле для ввода пароля
 
     @FindBy(css = "#form_auth button")
-    private WebElement submitButton;            //Кнопка для входа
+    private WebElement submitButton;                    //Кнопка для входа
 
     /**
      * Локаторы поиска для личного кабинета клииента
@@ -37,21 +36,24 @@ public class ClientPersonalAccountPage extends AbstractPage {
     @FindBy(id = "logout")
     private WebElement exitButton;             // Кнопка выхода из личного кабинета
 
-    @FindBy(className = "inline-btn btn_settings")
+    @FindBy(css = "[ng-tr=\"MTP.MTP4\"]")
     private WebElement profileSettingsButton;  //Кнопка входа в настройки профиля
 
     @FindBy(css = "[ng-model=\"customerProfile.username\"]")
     private WebElement userNameField;          // Поле логин пользователя yedake3020, пароль HJobXi
 
-    @FindBy(className = "customer-form-control ng-pristine ng-untouched ng-valid ng-not-empty")
+    @FindBy(css = "[ng-model=\"customerProfile.email\"]")
     private WebElement emailAddressField;      //Поле email пользователя yedake3020@mijumail.com
 
-    @FindBy(xpath = "//div[@class='uxc_custom_input filled']//input[@name='fio'")
+    @FindBy(css = "[required-error-message=\"Введите ФИО\"]")
     private WebElement fioField;               //Поле ФИО пользователя Rost
 
+    @FindBy(css = "[ng-tr=\"PRV.PRV71\"]")
+    private WebElement changePasswordButton;   //Кнопка изменения пароля
+
     /**
-     *
-     * @param driver
+     * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
+     * @param driver вебдрайвер с которым мы работаем
      */
     public ClientPersonalAccountPage(WebDriver driver) {
         super(driver);
@@ -68,7 +70,6 @@ public class ClientPersonalAccountPage extends AbstractPage {
      */
     private String testStand;
     private WebDriver driver;
-    private int timeWait = 10;
     private final String login = "yedake3020";
     private final String password = "HJobXi";
     private final String email = "yedake3020@mijumail.com";
@@ -82,44 +83,41 @@ public class ClientPersonalAccountPage extends AbstractPage {
     }
 
     /**
-     * Открыть окошко для входа
+     * вход в личный кабинет
      */
-    public void logIn(String email, String password) {
+    public void logIn() {
         loginButton.click();
-        new WebDriverWait(driver, timeWait).withMessage("Click register exception")
-                .until((d) -> startRegistrationButton.isDisplayed());
-        loginFiled.sendKeys(email);
+        loginFiled.sendKeys(login);
         passwordField.sendKeys(password);
         submitButton.click();
     }
 
     /**
      * Открыть настройки профиля клиента
-     *
      */
-    public void profilInfoIn(){
+    public void profileInfoIn(){
         profileSettingsButton.click();
     }
 
     /**
      * Проверка поля логин
      */
-    public void checkLogin(){
-        userNameField.getText().equals(login);
+    public boolean checkLogin(){
+        return userNameField.getAttribute("value").equals(login);
     }
 
     /**
      * Проверка поля email
      */
-    public void checkEmail(){
-        emailAddressField.getText().equals(email);
+    public boolean checkEmail(){
+        return emailAddressField.getAttribute("value").equals(email);
     }
 
     /**
      * Проверка поля ФИО
      */
-    public void chekFIO(){
-        fioField.getText().equals(FIO);
+    public boolean checkFIO(){
+        return fioField.getAttribute("value").equals(FIO);
     }
 
     /**
@@ -133,39 +131,16 @@ public class ClientPersonalAccountPage extends AbstractPage {
     /**
      * Геттеры для вебэлементов
      */
+
     public WebElement getLoginButton() {
         return loginButton;
-    }
-
-    public WebElement getLoginFiled() {
-        return loginFiled;
-    }
-
-    public WebElement getPasswordField() {
-        return passwordField;
-    }
-
-    public WebElement getSubmitButton() {
-        return submitButton;
     }
 
     public WebElement getExitButton() {
         return exitButton;
     }
 
-    public WebElement getProfileSettingsButton() {
-        return profileSettingsButton;
-    }
-
-    public WebElement getUserNameField() {
-        return userNameField;
-    }
-
-    public WebElement getEmailAddressField() {
-        return emailAddressField;
-    }
-
-    public WebElement getFioField() {
-        return fioField;
+    public WebElement getChangePasswordButton() {
+        return changePasswordButton;
     }
 }

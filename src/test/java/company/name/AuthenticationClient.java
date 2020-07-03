@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.io.File;
@@ -20,6 +19,7 @@ import static io.qameta.allure.Allure.step;
 /**
  * Тест проверяет возможность войти с заданными логином и паролем
  * @author Aleksander Dmitriev
+ * @see company.name.pages.Authentication
  */
 public class AuthenticationClient {
 

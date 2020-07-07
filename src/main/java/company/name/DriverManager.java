@@ -31,7 +31,7 @@ public class DriverManager {
         try {
             properties.load(inputStream);
         } catch (IOException e) {
-            throw new RuntimeException((e));
+            throw new RuntimeException(e);
         }
         String hubUrlString = properties.getProperty("selenium.hub.url");
         String browserName = properties.getProperty("selenium.browser.name");

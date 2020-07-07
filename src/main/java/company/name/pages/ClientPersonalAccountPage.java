@@ -1,6 +1,6 @@
 package company.name.pages;
 
-import org.openqa.selenium.WebDriver;
+import company.name.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -53,12 +53,9 @@ public class ClientPersonalAccountPage extends AbstractPage {
 
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
-     * @param driver вебдрайвер с которым мы работаем
      */
-    public ClientPersonalAccountPage(WebDriver driver) {
-        super(driver);
-        this.testStand = super.testStand;
-        this.driver = driver;
+    public ClientPersonalAccountPage() {
+        super(DriverManager.getDriver());
     }
 
     /**
@@ -68,24 +65,18 @@ public class ClientPersonalAccountPage extends AbstractPage {
      * @param email адресс почты в настройках профиля для проверки данных поля
      * @param FIO ФИО пользователя для проверки данных поля
      */
-    private String testStand;
-    private WebDriver driver;
-    private final String login = "yedake3020";
-    private final String password = "HJobXi";
-    private final String email = "yedake3020@mijumail.com";
-    private final String FIO = "Rost";
 
     /**
      * Открытие тестового стэнда
      */
     public void openTestStand(){
-        driver.get(testStand);
+        DriverManager.getDriver().get(testStand);
     }
 
     /**
      * вход в личный кабинет
      */
-    public void logIn() {
+    public void logIn(String login, String password) {
         loginButton.click();
         loginFiled.sendKeys(login);
         passwordField.sendKeys(password);
@@ -102,21 +93,21 @@ public class ClientPersonalAccountPage extends AbstractPage {
     /**
      * Проверка поля логин
      */
-    public boolean checkLogin(){
+    public boolean checkLogin(String login){
         return userNameField.getAttribute("value").equals(login);
     }
 
     /**
      * Проверка поля email
      */
-    public boolean checkEmail(){
+    public boolean checkEmail(String email){
         return emailAddressField.getAttribute("value").equals(email);
     }
 
     /**
      * Проверка поля ФИО
      */
-    public boolean checkFIO(){
+    public boolean checkFIO(String FIO){
         return fioField.getAttribute("value").equals(FIO);
     }
 
@@ -132,15 +123,15 @@ public class ClientPersonalAccountPage extends AbstractPage {
      * Геттеры для вебэлементов
      */
 
-    public WebElement getLoginButton() {
-        return loginButton;
+    public boolean checkLoginButton() {
+        return loginButton.isEnabled();
     }
 
-    public WebElement getExitButton() {
-        return exitButton;
+    public boolean checkExitButton() {
+        return exitButton.isEnabled();
     }
 
-    public WebElement getChangePasswordButton() {
-        return changePasswordButton;
+    public boolean checkChangePasswordButton() {
+        return changePasswordButton.isEnabled();
     }
 }

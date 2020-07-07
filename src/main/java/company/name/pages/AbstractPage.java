@@ -35,6 +35,9 @@ public abstract class AbstractPage {
         testStand = properties.getProperty("test.stand");
     }
 
+    public static String getStand() {
+        return testStand;
+    }
 
 
 }

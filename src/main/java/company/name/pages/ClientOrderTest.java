@@ -1,7 +1,7 @@
 package company.name.pages;
 
+import company.name.DriverManager;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,11 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class ClientOrderTest extends AbstractPage {
 
-    private String testStand;
-    private WebDriver driver;
     private int timeWait = 5;
-    private String login = "tisise5283@mailres.net"; // Почта заранее зарагестрированного пользователя
-    private String password = "OXvpUm"; // Пароль от личного кабинета клиента
 
     @FindBy(id = "header-lk-button")
     private WebElement loginButton;             // Открыть окно авторизации
@@ -69,13 +65,13 @@ public class ClientOrderTest extends AbstractPage {
     @FindBy(css = "[data-testid=\"Checkout start button\"]")
     private WebElement runFreeTestButton;        // Запуск бесплатного теста
 
-    @FindBy(css = "[class=\"sc-gPWkxV dwPzxl\"] [class=\"sc-bxivhb bJUtjD\"]")
+    @FindBy(xpath = "//*[contains(text(),'Тест создан')]")
     private WebElement checkCreateOneMoreTest;   // Кнопка создания еще одного теста
 
     @FindBy(css = ":nth-child(2).iaxSpn")
     private WebElement testListClick;            // Перейти к списку тестов
 
-    @FindBy(xpath = "//tr[1]//td[1]//a[1]//span[1]//span[1]")
+    @FindBy(css = "[class=\"MuiTable-root\"] [class=\"MuiTableBody-root\"] tr:first-child td:first-child a")
     private WebElement checkLastTestName;        // Проверка имени последнего теста
 
     @FindBy(linkText = "Завершить")
@@ -88,32 +84,27 @@ public class ClientOrderTest extends AbstractPage {
     private WebElement checkDeleteLastTest;      // Проверка закрытия последнего теста
 
 
-
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
-     *
-     * @param driver вебдрайвер с которым мы работаем
      */
-    public ClientOrderTest(WebDriver driver) {
-        super(driver);
-        this.testStand = super.testStand;
-        this.driver = driver;
+    public ClientOrderTest() {
+        super(DriverManager.getDriver());
     }
 
     /**
      * открывает тестовый стенд
      */
     public void openTestStand() {
-        driver.get(testStand);
+        DriverManager.getDriver().get(testStand);
     }
 
     /**
      * вход в личный кабинет
      */
-    public void logIn() {
+    public void logIn(String  login, String password) {
         loginButton.click();
 
-        new WebDriverWait(driver, timeWait).withMessage("Click logIn exception")
+        new WebDriverWait(DriverManager.getDriver(), timeWait).withMessage("Click logIn exception")
                 .until((d) -> submitButton.isDisplayed());
 
         loginFiled.sendKeys(login);
@@ -235,67 +226,131 @@ public class ClientOrderTest extends AbstractPage {
         yesDeleteButtonClick.click();
     }
 
+
     /**
-     * список геттеров
+     *
+     * @return
      */
-
-    public WebElement getLoginButton() {
-        return loginButton;
+    public boolean checkLoginButton() {
+        return loginButton.isEnabled();
     }
 
-    public WebElement getExitButton() {
-        return exitButton;
+    /**
+     *
+     * @return
+     */
+    public boolean checkExitButton() {
+        return exitButton.isEnabled();
     }
 
-    public WebElement getTestNameField() {
-        return testNameField;
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public boolean checkTestNameField(String name) {
+        return testNameField.getAttribute("value").equals(name);
     }
 
-    public WebElement getSiteNameField() {
-        return siteNameField;
+    /**
+     *
+     * @param site
+     * @return
+     */
+    public boolean checkSiteNameField(String site) {
+        return siteNameField.getAttribute("value").equals(site);
     }
 
-    public WebElement getInformationField() {
-        return informationField;
+    /**
+     *
+     * @param information
+     * @return
+     */
+    public boolean checkInformationField(String information) {
+        return informationField.getAttribute("value").equals(information);
     }
 
-    public WebElement getToPeopleGroup() {
-        return toPeopleGroup;
+    /**
+     *
+     * @return
+     */
+    public boolean checkToPeopleGroup() {
+        return toPeopleGroup.isEnabled();
     }
 
-    public WebElement getSegmentNameField() {
-        return segmentNameField;
+    /**
+     *
+     * @param segmentName
+     * @return
+     */
+    public boolean checkSegmentNameField(String segmentName) {
+        return segmentNameField.getAttribute("value").equals(segmentName);
     }
 
-    public WebElement getTaskClick() {
-        return taskClick;
+    /**
+     *
+     * @return
+     */
+    public boolean checkTaskClick() {
+        return taskClick.isEnabled();
     }
 
-    public WebElement getTaskField() {
-        return taskField;
+    /**
+     *
+     * @param task
+     * @return
+     */
+    public boolean checkTaskField(String task) {
+        return taskField.getAttribute("value").equals(task);
     }
 
-    public WebElement getCheckTaskDelete() {
-        return checkTaskDelete;
+    /**
+     *
+     * @return
+     */
+    public boolean checkTaskDelete() {
+        return checkTaskDelete.isEnabled();
     }
 
-    public WebElement getCheckAndRunButton() {
-        return checkAndRunButton;
+    /**
+     *
+     * @return
+     */
+    public boolean checkAndRunButton() {
+        return checkAndRunButton.isEnabled();
     }
 
-    public WebElement getRunFreeTestButton() {
-        return runFreeTestButton;
+    /**
+     *
+     * @return
+     */
+    public boolean checkRunFreeTestButton() {
+        return runFreeTestButton.isEnabled();
     }
 
-    public WebElement getCheckCreateOneMoreTest() {
-        return checkCreateOneMoreTest;
+    /**
+     *
+     * @return
+     */
+    public boolean checkCheckCreateOneMoreTest() {
+        return checkCreateOneMoreTest.isEnabled();
     }
 
-    public WebElement getCheckLastTestName() {
-        return checkLastTestName;
+    /**
+     *
+     * @param nameTest
+     * @return
+     */
+    public boolean checkCheckLastTestName(String nameTest) {
+        return checkLastTestName.getText().equals(nameTest);
     }
 
-    public WebElement getCheckDeleteLastTest() {
-        return checkDeleteLastTest;
+    /**
+     *
+     * @param text
+     * @return
+     */
+    public boolean checkCheckDeleteLastTest(String text) {
+        return checkDeleteLastTest.getText().equals(text);
     }
 }

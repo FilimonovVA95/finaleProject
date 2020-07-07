@@ -1,6 +1,6 @@
 package company.name.pages;
 
-import org.openqa.selenium.WebDriver;
+import company.name.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -10,17 +10,11 @@ import org.openqa.selenium.support.FindBy;
  */
 public class RegistrationClient extends AbstractPage {
 
-    private String testStand;
-    private WebDriver driver;
-
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
-     * @param driver вебдрайвер с которым мы работаем
      */
-    public RegistrationClient(WebDriver driver) {
-        super(driver);
-        this.testStand = super.testStand;
-        this.driver = driver;
+    public RegistrationClient() {
+        super(DriverManager.getDriver());
     }
 
     @FindBy(id = "header-lk-button")                                //кнопка открытия окна входа
@@ -146,7 +140,7 @@ public class RegistrationClient extends AbstractPage {
      * @param emailTest email пользователя
      */
     public void inputEmailClient(String emailTest) {
-        getLoginFiled().sendKeys(emailTest);
+        loginFiled.sendKeys(emailTest);
     }
 
     /**
@@ -154,14 +148,14 @@ public class RegistrationClient extends AbstractPage {
      * @param passwordTest пароль пользователя
      */
     public void inputPasswordClient(String passwordTest){
-        getPasswordField().sendKeys(passwordTest);
+        passwordField.sendKeys(passwordTest);
     }
 
     /**
      * нажимает кнопку входа в аккаунт
      */
     public void logInClient() {
-        getInButton().click();
+        inButton.click();
     }
 
     /**
@@ -175,79 +169,126 @@ public class RegistrationClient extends AbstractPage {
      * открытие тестового стенда
      */
     public void openTestStand(){
-        driver.get(testStand);
+        DriverManager.getDriver().get(testStand);
     }
-
 
     /**
-     * Геттеры для вебэлементов
+     *
+     * @return
      */
-
-    public WebDriver getDriver() {
-        return driver;
+    public boolean checkLoginButton() {
+        return loginButton.isEnabled();
     }
 
-    public WebElement getLoginButton() {
-        return loginButton;
+    /**
+     *
+     * @return
+     */
+    public boolean checkForgotPassword() {
+        return forgotPassword.isEnabled();
     }
 
-    public WebElement getForgotPassword() {
-        return forgotPassword;
+    /**
+     *
+     * @return
+     */
+    public boolean checkNewRegistrationClientButton() {
+        return newRegistrationClientButton.isEnabled();
     }
 
-    public WebElement getStartRegistrationButton() {
-        return startRegistrationButton;
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public boolean checkRegistrationNameField(String name) {
+        return registrationNameField.getAttribute("value").equals(name);
     }
 
-    public WebElement getNewRegistrationClientButton() {
-        return newRegistrationClientButton;
+    /**
+     *
+     * @param position
+     * @return
+     */
+    public boolean checkRegistrationPositionField(String position) {
+        return registrationPositionField.getAttribute("value").equals(position);
     }
 
-    public WebElement getRegistrationNameField() {
-        return registrationNameField;
+    /**
+     *
+     * @param company
+     * @return
+     */
+    public boolean checkRegistrationCompanyField(String company) {
+        return registrationCompanyField.getAttribute("value").equals(company);
     }
 
-    public WebElement getRegistrationPositionField() {
-        return registrationPositionField;
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public boolean checkRegistrationEmailField(String email) {
+        return registrationEmailField.getAttribute("value").equals(email);
     }
 
-    public WebElement getRegistrationCompanyField() {
-        return registrationCompanyField;
+    /**
+     *
+     * @param phone
+     * @return
+     */
+    public boolean checkRegistrationPhoneNumberField(String phone) {
+        return registrationPhoneNumberField.getAttribute("value").equals(phone);
     }
 
-    public WebElement getRegistrationEmailField() {
-        return registrationEmailField;
+    /**
+     *
+     * @param site
+     * @return
+     */
+    public boolean checkRegistrationSiteField(String site) {
+        return registrationSiteField.getAttribute("value").equals(site);
     }
 
-    public WebElement getRegistrationPhoneNumberField() {
-        return registrationPhoneNumberField;
+    /**
+     *
+     * @return
+     */
+    public boolean checkRegistrationClientOnFieldRegistration() {
+        return registrationClientOnFieldRegistration.isEnabled();
     }
 
-    public WebElement getRegistrationSiteField() {
-        return registrationSiteField;
+    /**
+     *
+     * @return
+     */
+    public boolean checkmark() {
+        return check.isEnabled();
     }
 
-    public WebElement getRegistrationClientOnFieldRegistration() {
-        return registrationClientOnFieldRegistration;
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public boolean checkLoginFiled(String email) {
+        return loginFiled.getAttribute("value").equals(email);
     }
 
-    public WebElement getCheck() {
-        return check;
+    /**
+     *
+     * @param password
+     * @return
+     */
+    public boolean checkPasswordField(String password) {
+        return passwordField.getAttribute("value").equals(password);
     }
 
-    public WebElement getLoginFiled() {
-        return loginFiled;
-    }
-
-    public WebElement getPasswordField() {
-        return passwordField;
-    }
-
-    public WebElement getInButton() {
-        return inButton;
-    }
-
-    public WebElement getLogout() {
-        return logout;
+    /**
+     *
+     * @return
+     */
+    public boolean checkLogout() {
+        return logout.isEnabled();
     }
 }

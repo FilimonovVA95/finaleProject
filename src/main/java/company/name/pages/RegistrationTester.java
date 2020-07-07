@@ -1,6 +1,6 @@
 package company.name.pages;
 
-import org.openqa.selenium.WebDriver;
+import company.name.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -10,17 +10,11 @@ import org.openqa.selenium.support.FindBy;
 */
 public class RegistrationTester extends AbstractPage {
 
-    private String testStand;
-    private WebDriver driver;
-
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
-     * @param driver вебдрайвер с которым мы работаем
      */
-    public RegistrationTester(WebDriver driver) {
-        super(driver);
-        this.testStand = super.testStand;
-        this.driver = driver;
+    public RegistrationTester() {
+        super(DriverManager.getDriver());
     }
 
     @FindBy(id = "header-lk-button")                //кнопка открытия окна входа
@@ -64,7 +58,7 @@ public class RegistrationTester extends AbstractPage {
      * открыть тестовый стенд
      */
     public void openTestStand(){
-        driver.get(testStand);
+        DriverManager.getDriver().get(testStand);
     }
 
     /**
@@ -109,7 +103,7 @@ public class RegistrationTester extends AbstractPage {
      * @param email почта, использованная для регистрации
      */
     public void inputEmailTester (String email) {
-        getLoginFiled().sendKeys(email);
+        loginFiled.sendKeys(email);
     }
 
     /**
@@ -117,14 +111,14 @@ public class RegistrationTester extends AbstractPage {
      * @param password пароль, полученный из письма
      */
     public void inputPasswordTester (String password) {
-        getPasswordField().sendKeys(password);
+        passwordField.sendKeys(password);
     }
 
     /**
      * войти в личный кабинет
      */
     public void logInClick() {
-        getInButton().click();
+        inButton.click();
     }
 
     /**
@@ -134,52 +128,86 @@ public class RegistrationTester extends AbstractPage {
         clickLogOut.click();
     }
 
+    /**
+     *
+     * @return
+     */
+    public boolean checkLoginButton() {
+        return loginButton.isEnabled();
+    }
 
     /**
-     * Геттеры для вебэлементов
+     *
+     * @return
      */
-
-    public WebElement getLoginButton() {
-        return loginButton;
+    public boolean checkStartRegistrationButton() {
+        return startRegistrationButton.isEnabled();
     }
 
-    public WebElement getStartRegistrationButton() {
-        return startRegistrationButton;
+    /**
+     *
+     * @return
+     */
+    public boolean checkForgotPassword() {
+        return forgotPassword.isEnabled();
     }
 
-    public WebElement getForgotPassword() {
-        return forgotPassword;
+    /**
+     *
+     * @return
+     */
+    public boolean checkStartRegistrationTesterButton() {
+        return startRegistrationTesterButton.isEnabled();
     }
 
-    public WebElement getStartRegistrationTesterButton() {
-        return startRegistrationTesterButton;
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public boolean checkRegistrationEmailField(String email) {
+        return registrationEmailField.getAttribute("value").equals(email);
     }
 
-    public WebElement getRegistrationEmailField() {
-        return registrationEmailField;
+    /**
+     *
+     * @return
+     */
+    public boolean checkClickFinishRegistration() {
+        return clickFinishRegistration.isEnabled();
     }
 
-    public WebElement getClickFinishRegistration() {
-        return clickFinishRegistration;
+    /**
+     *
+     * @return
+     */
+    public boolean checkmark() {
+        return check.isEnabled();
     }
 
-    public WebElement getCheck() {
-        return check;
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public boolean checkLoginFiled(String email) {
+        return loginFiled.getAttribute("value").equals(email);
     }
 
-    public WebElement getLoginFiled() {
-        return loginFiled;
+    /**
+     *
+     * @param password
+     * @return
+     */
+    public boolean checkPasswordField(String password) {
+        return passwordField.getAttribute("value").equals(password);
     }
 
-    public WebElement getPasswordField() {
-        return passwordField;
-    }
-
-    public WebElement getInButton() {
-        return inButton;
-    }
-
-    public WebElement getClickLogOut() {
-        return clickLogOut;
+    /**
+     *
+     * @return
+     */
+    public boolean checkClickLogOut() {
+        return clickLogOut.isEnabled();
     }
 }

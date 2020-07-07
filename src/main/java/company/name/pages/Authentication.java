@@ -1,8 +1,10 @@
 package company.name.pages;
 
-import org.openqa.selenium.WebDriver;
+import company.name.DriverManager;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 /**
@@ -10,10 +12,6 @@ import org.openqa.selenium.support.FindBy;
  * @author Акматалиев Алмаз
  */
 public class Authentication extends AbstractPage {
-
-    private String testStand;
-    private WebDriver driver;
-    private int timeWait = 5;
 
     @FindBy(id = "header-lk-button")                    //кнопка открытия окна авторизации
     private WebElement loginButton;
@@ -39,20 +37,16 @@ public class Authentication extends AbstractPage {
 
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
-     *
-     * @param driver вебдрайвер с которым мы работаем
      */
-    public Authentication (WebDriver driver) {
-        super(driver);
-        this.testStand = super.testStand;
-        this.driver = driver;
+    public Authentication () {
+        super(DriverManager.getDriver());
     }
 
     /**
      * открыть тестовый стенд
      */
     public void openTestStand(){
-        driver.get(testStand);
+        DriverManager.getDriver().get(testStand);
     }
 
     /**
@@ -91,35 +85,79 @@ public class Authentication extends AbstractPage {
     }
 
     /**
-     * Геттеры для вебэлементов
+     *
+     * @return
      */
-
-    public WebElement getLoginButton() {
-        return loginButton;
+    public boolean checkLoginButton() {
+        return loginButton.isEnabled();
     }
 
-    public WebElement getLoginFiled() {
-        return loginFiled;
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public boolean checkLoginFiled(String email) {
+        return loginFiled.getAttribute("value").equals(email);
     }
 
-    public WebElement getPasswordField() {
-        return passwordField;
+    /**
+     *
+     * @param password
+     * @return
+     */
+    public boolean checkPasswordField(String password) {
+        return passwordField.getAttribute("value").equals(password);
     }
 
-    public WebElement getClickLogIn() {
-        return clickLogIn;
+    /**
+     *
+     * @return
+     */
+    public boolean checkClickLogIn() {
+        return clickLogIn.isEnabled();
     }
 
-    public WebElement getClickLogOut() {
-        return clickLogOut;
+    /**
+     *
+     * @return
+     */
+    public boolean checkClickLogOut() {
+        return clickLogOut.isEnabled();
     }
 
-    public WebElement getInCorrectEmailOrPasswordError() {
-        return InCorrectEmailOrPasswordError;
+    /**
+     *
+     * @return
+     */
+    public boolean checkInCorrectEmailOrPasswordError() {
+        new WebDriverWait(DriverManager.getDriver(), 5).until((d) -> InCorrectEmailOrPasswordError.isDisplayed());
+        return InCorrectEmailOrPasswordError.getText().equals("Неверная почта или пароль");
     }
 
-    public WebElement getInCorrectEmailOrPasswordNull() {
-        return InCorrectEmailOrPasswordNull;
+    /**
+     *
+     * @param message
+     * @return
+     */
+    public boolean checkInCorrectEmailOrPasswordNull(String message) {
+        return InCorrectEmailOrPasswordNull.getText().equals(message);
+    }
+
+    /**
+     *
+     */
+    public void clearFieldEmail() {
+        String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE;
+        loginFiled.sendKeys(del);
+    }
+
+    /**
+     *
+     */
+    public void clearFieldPassword() {
+        String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE;
+        passwordField.sendKeys(del);
     }
 
 }

@@ -21,8 +21,9 @@ public class AbstractNegativeStep {
         TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
         File screen = ts.getScreenshotAs(OutputType.FILE);
         String screenName = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
+        String className = this.getClass().getSimpleName();
         try {
-            FileUtils.copyFile(screen, new File("./ScreenShots/"+screenName+"_Screenshot.png"));
+            FileUtils.copyFile(screen, new File("./ScreenShots/" + className + "/" + screenName + "_Screenshot.png"));
         } catch (IOException e) {
             System.out.println("Exception while taking ScreenShot "+e.getMessage());
             e.printStackTrace();

@@ -16,7 +16,7 @@ public class AbstractNegativeStep {
     /**
      * Метод для получения скриншота и сохранения его в папке screenShots
      */
-    @Attachment(value = "Page screenshot", type = "image")
+    @Attachment(value = "Page screenshot", type = "image/png")
     protected void screenShotStep() {
         TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
         File screen = ts.getScreenshotAs(OutputType.FILE);

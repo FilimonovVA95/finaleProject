@@ -30,7 +30,7 @@ public class AuthenticationClient {
     private Authentication authentication = new Authentication(driver);
 
     @Test
-    public void AutentificationClient() {
+    public void autentificationClient() {
         openTestStand();
         step("Проверяем активность кнопки \"Войти\"", () -> {
             Assert.assertTrue(authentication.getLoginButton().isEnabled(), "Open test stand exception");

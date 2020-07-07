@@ -15,20 +15,27 @@ public class Authentication extends AbstractPage {
     private WebDriver driver;
     private int timeWait = 5;
 
-    @FindBy(id = "header-lk-button")            //кнопка открытия окна авторизации
+    @FindBy(id = "header-lk-button")                    //кнопка открытия окна авторизации
     private WebElement loginButton;
 
     @FindBy(id = "login")
-    private WebElement loginFiled;              //поле для ввода логина при входе
+    private WebElement loginFiled;                      //поле для ввода логина при входе
 
     @FindBy(css = "[type=password]")
-    private WebElement passwordField;           //поле для ввода пароля
+    private WebElement passwordField;                   //поле для ввода пароля
 
-    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"]")      // Кнопка войти в аккаунт
+    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"]")              // Кнопка войти в аккаунт
     private WebElement clickLogIn;
 
-    @FindBy(id = "logout")                      // Кнопка выйти
+    @FindBy(id = "logout")                              // Кнопка выйти
     private WebElement clickLogOut;
+
+    @FindBy(className = "error-block")                  // Поле ошибки при неверном указании email или пароля
+    private WebElement InCorrectEmailOrPasswordError;
+
+    @FindBy(css = ".validation-invalid")                // Поле ошибки при пустом email или пароле
+    private WebElement InCorrectEmailOrPasswordNull;
+
 
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
@@ -106,4 +113,13 @@ public class Authentication extends AbstractPage {
     public WebElement getClickLogOut() {
         return clickLogOut;
     }
+
+    public WebElement getInCorrectEmailOrPasswordError() {
+        return InCorrectEmailOrPasswordError;
+    }
+
+    public WebElement getInCorrectEmailOrPasswordNull() {
+        return InCorrectEmailOrPasswordNull;
+    }
+
 }

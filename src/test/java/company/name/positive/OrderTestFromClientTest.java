@@ -1,17 +1,17 @@
 package company.name.positive;
 
 import company.name.DriverManager;
-import company.name.positive.steps.OrderTestFromClientPositiveStep;
-import org.junit.jupiter.api.Test;
+import company.name.pages.ClientOrderTestPage;
+import org.testng.annotations.Test;
+
 
 /**
  * Класс теста проверки функционала клиента. Проверяет возможность заказать новый тест
- * @see company.name.pages.ClientOrderTest
- * @author Филимонов Виктор
+ * @see ClientOrderTestPage
  */
-public class OrderTestFromClient {
+public class OrderTestFromClientTest {
 
-    private OrderTestFromClientPositiveStep step = new OrderTestFromClientPositiveStep();
+    private ClientOrderTestPage step = new ClientOrderTestPage();
 
     /**
      * Поля переменных, необходимых при тестировании. Данные полей вводятся при создании теста
@@ -30,22 +30,22 @@ public class OrderTestFromClient {
     @Test
     public void createTestClient() {
 
-        step.openTestStandStep();
-        step.logInStep(login, password);
-        step.createTestStep();
-        step.inputNameTestStep(nameTest);
-        step.inputSiteTestStep(siteTest);
-        step.inputIntroductoryInformationStep(information);
-        step.clickNextStep();
-        step.inputSegmentNameStep(segmentName);
-        step.clickTasksStep();
-        step.inputTaskStep(task);
-        step.clickAddTaskStep();
-        step.clickCheckAndRunStep();
-        step.clickRunFreeTestStep();
-        step.clickGoToListTestsStep(nameTest);
-        step.deleteLastTestStep();
-        step.logoutStep();
+        step.openTestStand();
+        step.logIn(login, password);
+        step.createTest();
+        step.inputNameTest(nameTest);
+        step.inputSiteTest(siteTest);
+        step.inputIntroductoryInformation(information);
+        step.clickNext();
+        step.inputSegmentName(segmentName);
+        step.clickTasks();
+        step.inputTask(task);
+        step.clickAddTask();
+        step.clickCheckAndRun();
+        step.clickRunFreeTest();
+        step.clickGoToListTests(nameTest);
+        step.closeTest();
+        step.logout();
         DriverManager.quit();
     }
 

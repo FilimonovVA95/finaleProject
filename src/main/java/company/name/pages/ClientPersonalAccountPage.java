@@ -1,12 +1,12 @@
 package company.name.pages;
 
 import company.name.DriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
  * Класс личного кабинета пользователя
- * @author Rostislav Efimov
  */
 public class ClientPersonalAccountPage extends AbstractPage {
 
@@ -58,70 +58,49 @@ public class ClientPersonalAccountPage extends AbstractPage {
         super(DriverManager.getDriver());
     }
 
-    /**
-     * @param timeWait принимает время ожидания в секундах
-     * @param login логин для входа в личный кабинет
-     * @param password пароль для входа в личный кабинет
-     * @param email адресс почты в настройках профиля для проверки данных поля
-     * @param FIO ФИО пользователя для проверки данных поля
-     */
 
-    /**
-     * Открытие тестового стэнда
-     */
+    @Step("Открыть тестовый стенд")
     public void openTestStand(){
-        DriverManager.getDriver().get(testStand);
+        DriverManager.getDriver().get(getStand());
+        checkAndScreenShot("Проверяем активность кнопки 'Войти'", checkLoginButton(), "Open test stand exception");
     }
 
-    /**
-     * вход в личный кабинет
-     */
+    @Step("Войти в личный кабинет клиента")
     public void logIn(String login, String password) {
         loginButton.click();
         loginFiled.sendKeys(login);
         passwordField.sendKeys(password);
         submitButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Выйти'", checkExitButton(), "Log In exception");
     }
 
-    /**
-     * Открыть настройки профиля клиента
-     */
+    @Step("Войти в настройки профиля клиента")
     public void profileInfoIn(){
         profileSettingsButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Изменить пароль'", checkChangePasswordButton(), "Passed to profile exception");
     }
 
-    /**
-     * Проверка поля логин
-     */
-    public boolean checkLogin(String login){
-        return userNameField.getAttribute("value").equals(login);
+    @Step("Проверить логин клиента")
+    public void checkLogin(String login){
+        checkAndScreenShot("Проверяем данные в поле логин", userNameField.getAttribute("value").equals(login), "Login display exception");
+
     }
 
-    /**
-     * Проверка поля email
-     */
-    public boolean checkEmail(String email){
-        return emailAddressField.getAttribute("value").equals(email);
+    @Step("Проверить email клиента")
+    public void checkEmail(String email){
+        checkAndScreenShot("Проверяем данные в поле email", emailAddressField.getAttribute("value").equals(email), "Email display exception");
     }
 
-    /**
-     * Проверка поля ФИО
-     */
-    public boolean checkFIO(String FIO){
-        return fioField.getAttribute("value").equals(FIO);
+    @Step("Проверить ФИО клиента")
+    public void checkFIO(String FIO){
+        checkAndScreenShot("Проверяем данные в поле ФИО", fioField.getAttribute("value").equals(FIO), "Full name display exception");
     }
 
-    /**
-     * Выйти из личного кабинета клиента
-     */
+    @Step("Выйти из личного кабинета")
     public void logOut(){
         exitButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Вход'", checkLoginButton(), "Logout exception");
     }
-
-
-    /**
-     * Геттеры для вебэлементов
-     */
 
     public boolean checkLoginButton() {
         return loginButton.isEnabled();

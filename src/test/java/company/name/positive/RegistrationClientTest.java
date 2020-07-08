@@ -2,13 +2,13 @@ package company.name.positive;
 
 import company.name.DriverManager;
 import company.name.pages.OneOffMailPageThroughRequests;
-import company.name.positive.steps.RegistrationClientTestPositiveStep;
-import org.junit.jupiter.api.Test;
+import company.name.pages.RegistrationClientPage;
+import org.testng.annotations.Test;
+
 
 /**
  * Класс теста регистрации клиента
- * @author Akmataliev Almaz
- * @see company.name.pages.RegistrationClient
+ * @see RegistrationClientPage
  * @see OneOffMailPageThroughRequests
  */
 public class RegistrationClientTest {
@@ -23,28 +23,28 @@ public class RegistrationClientTest {
     private String siteTest = "https://test.uxcrowd.ru/";
     private String emailTest = OneOffMailPageThroughRequests.getNewEmail();
 
-    private RegistrationClientTestPositiveStep step = new RegistrationClientTestPositiveStep();
+    private RegistrationClientPage step = new RegistrationClientPage();
     private String passwordTest;
 
     @Test
     public void createTestClient(){
         step.openTestStand();
-        step.openPopUpStep();
-        step.clickRegistrationStep();
-        step.clickRegistrationClientStep();
-        step.inputPersonNameStep(name);
-        step.inputPositionStep(position);
-        step.inputCompanyNameStep(company);
-        step.inputEmailStep(emailTest);
-        step.inputPhoneStep(phone);
-        step.inputSiteStep(siteTest);
-        step.clickFinishRegistrationStep();
-        step.openPopUpStep();
+        step.openPopUp();
+        step.clickRegistration();
+        step.clickRegistrationClient();
+        step.inputPersonName(name);
+        step.inputPosition(position);
+        step.inputCompanyName(company);
+        step.inputEmail(emailTest);
+        step.inputPhone(phone);
+        step.inputSite(siteTest);
+        step.clickFinishRegistration();
+        step.openPopUp();
         passwordTest = OneOffMailPageThroughRequests.getPassword();
-        step.loginFieldStep(emailTest);
-        step.passwordFieldStep(passwordTest);
-        step.inButtonStep();
-        step.logOutStep();
+        step.inputEmailClient(emailTest);
+        step.inputPasswordClient(passwordTest);
+        step.logInClient();
+        step.logOut();
         OneOffMailPageThroughRequests.deleteEmail();
         DriverManager.quit();
     }

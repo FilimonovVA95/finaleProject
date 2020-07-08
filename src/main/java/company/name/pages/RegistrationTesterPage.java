@@ -1,19 +1,19 @@
 package company.name.pages;
 
 import company.name.DriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * @author Akmataliev Almaz
  * Регистрация тестера
 */
-public class RegistrationTester extends AbstractPage {
+public class RegistrationTesterPage extends AbstractPage {
 
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
      */
-    public RegistrationTester() {
+    public RegistrationTesterPage() {
         super(DriverManager.getDriver());
     }
 
@@ -47,165 +47,148 @@ public class RegistrationTester extends AbstractPage {
     @FindBy(css = "[type=password]")                //поле для ввода пароля
     private WebElement passwordField;
 
-    @FindBy(css = "[ng-tr=\"WHE1.WHE4\"")           // кнопка для входа в аккаунт
-    private WebElement inButton;
-
     @FindBy(id = "logout")                          // Кнопка выйти
     private WebElement clickLogOut;
 
 
-    /**
-     * открыть тестовый стенд
-     */
+    @Step("Открыть тестовый стенд")
     public void openTestStand(){
-        DriverManager.getDriver().get(testStand);
+        DriverManager.getDriver().get(getStand());
+        checkAndScreenShot("Проверяем активность кнопки 'Войти'", checkLoginButton(), "Open test stand exception");
     }
 
-    /**
-     * открыть окно авторизации
-     */
+    @Step("Открыть окно авторизации")
     public void openPopUp(){
         loginButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Забыли пароль'", checkForgotPassword(), "The 'Forgot Password' button is inactive");
     }
 
-    /**
-     * открыть окно регистрации
-     */
+    @Step("Открыть окно регистрации")
     public void clickRegistration() {
         startRegistrationButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Стать Тестировщиком'", checkStartRegistrationTesterButton(),"Button registration tester exception");
     }
 
-    /**
-     * начать регистрацию тестера
-     */
-    public void inputRegistrationTester(){
+    @Step("Начать регистрацию тестера")
+    public void clickRegistrationTester(){
         startRegistrationTesterButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Зарегистрироваться'", checkClickFinishRegistration(),"Click finish registration exception");
     }
 
-    /**
-     * ввести email для регистрации
-     * @param email почта для регистрации
-     */
+    @Step("Ввести емайл для регистрации")
     public void inputEmail(String email){
         registrationEmailField.sendKeys(email);
+        checkAndScreenShot("Поле заполненно почтой", checkRegistrationEmailField(email), "'Mail' field is empty");
     }
 
-    /**
-     * завершить регистрацию
-     */
-    public void clickFinishRegistrationOnFieldRegistration()
-    {
+    @Step("Завершить регистрацию")
+    public void clickFinishRegistration() {
         clickFinishRegistration.click();
+        checkAndScreenShot("Элемент 'галочка' активна", checkmark(), "'Checkmark' not active");
     }
 
-    /**
-     * ввести email для авторизации
-     * @param email почта, использованная для регистрации
-     */
+    @Step("Ввести в поле 'Почта' почту")
     public void inputEmailTester (String email) {
         loginFiled.sendKeys(email);
+        checkAndScreenShot("Поле заполненно почтой", checkLoginFiled(email), "'Mail' field is empty");
     }
 
-    /**
-     * ввести пароль для авторизации
-     * @param password пароль, полученный из письма
-     */
+    @Step("Ввести в поле 'Пароль' пароль")
     public void inputPasswordTester (String password) {
         passwordField.sendKeys(password);
+        checkAndScreenShot("Поле заполненно паролем", checkPasswordField(password), "'Password' field is empty");
     }
 
-    /**
-     * войти в личный кабинет
-     */
+    @Step("Нажать кнопку 'Войти'")
     public void logInClick() {
-        inButton.click();
+        clickLogIn.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Выйти'", checkClickLogOut(), "'Login' button not active");
     }
 
-    /**
-     * выйти из личного кабинета
-     */
+    @Step("Выйти из зарегестрированного профиля")
     public void logOut(){
         clickLogOut.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Войти'", checkLoginButton(), "'Logout' button not active");
     }
 
     /**
-     *
-     * @return
+     * проверка кнопки открытия PopUp
+     * @return возвращает true если найден объект
      */
     public boolean checkLoginButton() {
         return loginButton.isEnabled();
     }
 
     /**
-     *
-     * @return
+     * проверка кнопки 'Зарегестрироваться'
+     * @return возвращает true если найден объект
      */
     public boolean checkStartRegistrationButton() {
         return startRegistrationButton.isEnabled();
     }
 
     /**
-     *
-     * @return
+     * проверка кнопки 'Востановить пароль'
+     * @return возвращает true если найден объект
      */
     public boolean checkForgotPassword() {
         return forgotPassword.isEnabled();
     }
 
     /**
-     *
-     * @return
+     * проверка кнопки 'Зарегестрировать тестера'
+     * @return возвращает true если найден объект
      */
     public boolean checkStartRegistrationTesterButton() {
         return startRegistrationTesterButton.isEnabled();
     }
 
     /**
-     *
-     * @param email
-     * @return
+     * проверка поля email
+     * @param email корректный email
+     * @return возвращает true если совпадает email
      */
     public boolean checkRegistrationEmailField(String email) {
         return registrationEmailField.getAttribute("value").equals(email);
     }
 
     /**
-     *
-     * @return
+     * проверка кнопки 'Зарегестрировать'
+     * @return возвращает true если найден объект
      */
     public boolean checkClickFinishRegistration() {
         return clickFinishRegistration.isEnabled();
     }
 
     /**
-     *
-     * @return
+     * проверка успешной регистрации
+     * @return возвращает true если найден объект
      */
     public boolean checkmark() {
         return check.isEnabled();
     }
 
     /**
-     *
-     * @param email
-     * @return
+     * проверка поля email
+     * @param email корректный email
+     * @return возвращает true если совпадает email
      */
     public boolean checkLoginFiled(String email) {
         return loginFiled.getAttribute("value").equals(email);
     }
 
     /**
-     *
-     * @param password
-     * @return
+     * проверка поля пароля
+     * @param password корректный пароль
+     * @return возвращает true если совпадает пароль
      */
     public boolean checkPasswordField(String password) {
         return passwordField.getAttribute("value").equals(password);
     }
 
     /**
-     *
-     * @return
+     * проверка кнопки 'Выход'
+     * @return возвращает true если найден объект
      */
     public boolean checkClickLogOut() {
         return clickLogOut.isEnabled();

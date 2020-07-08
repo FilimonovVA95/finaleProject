@@ -1,18 +1,13 @@
 package company.name.pages;
 
 import company.name.DriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-/**
- * @Author Aleksander Dmitriev
- * @mail shdmi.2010@gmail.com
- */
-public class ClientOrderTest extends AbstractPage {
+public class ClientOrderTestPage extends AbstractPage {
 
-    private int timeWait = 5;
 
     @FindBy(id = "header-lk-button")
     private WebElement loginButton;             // Открыть окно авторизации
@@ -87,149 +82,120 @@ public class ClientOrderTest extends AbstractPage {
     /**
      * Конструктор. Загружает ссылку на тест-стенд из файла конфигурации и подгружает указанные веб-элементы
      */
-    public ClientOrderTest() {
+    public ClientOrderTestPage() {
         super(DriverManager.getDriver());
     }
 
-    /**
-     * открывает тестовый стенд
-     */
+    @Step("Открыть тестовый стенд")
     public void openTestStand() {
-        DriverManager.getDriver().get(testStand);
+        DriverManager.getDriver().get(getStand());
+        checkAndScreenShot("Проверяем активность кнопки 'Войти'", checkLoginButton(), "Open test stand exception");
     }
 
-    /**
-     * вход в личный кабинет
-     */
+    @Step("Войти в личный кабинет клиента")
     public void logIn(String  login, String password) {
         loginButton.click();
-
-        new WebDriverWait(DriverManager.getDriver(), timeWait).withMessage("Click logIn exception")
-                .until((d) -> submitButton.isDisplayed());
-
         loginFiled.sendKeys(login);
         passwordField.sendKeys(password);
         submitButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Выйти'", checkExitButton(), "Log In exception");
     }
 
-    /**
-     * выход из личного кабинета
-     */
+    @Step("Нажать кнопку 'Выход'")
     public void logout() {
         exitButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Вход'", checkLoginButton(), "Logout exception");
     }
 
-    /**
-     * начало создания нового теста
-     */
+    @Step("Нажать кнопку 'Новый тест'")
     public void createTest() {
         createTest.click();
+        checkAndScreenShot("Проверяем активность кнопки 'К выбору аудитории'", checkToPeopleGroup(), "Create test exception");
     }
 
-    /**
-     * ввод названия теста
-     *
-     * @param nameTest - само название теста
-     */
+    @Step("Ввести название теста")
     public void inputNameTest(String nameTest) {
         testNameField.sendKeys(nameTest);
+        checkAndScreenShot("Проверяем правильность ввода в поле 'Название теста'", checkTestNameField(nameTest), "Input name test exception");
     }
 
-    /**
-     * ввод имени тестируемого сайта
-     *
-     * @param SiteTest - имя тестируемого сайта
-     */
-    public void inputSiteTest(String SiteTest) {
-        siteNameField.sendKeys(SiteTest);
+    @Step("Ввести адрес тестируемого сайта")
+    public void inputSiteTest(String siteTest) {
+        siteNameField.sendKeys(siteTest);
+        checkAndScreenShot("Проверяем правильность ввода в поле 'Адрес тестируемого сайта'",
+                checkSiteNameField("https://" + siteTest), "Input site test exception");
     }
 
-    /**
-     * Вводная информация для респондента
-     *
-     * @param information - информация для респондента
-     */
+    @Step("Ввести вводную информацию")
     public void inputIntroductoryInformation(String information) {
-
         String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE;
         informationField.sendKeys(del);
-
         informationField.sendKeys(information);
+        checkAndScreenShot("Проверяем правильность ввода в поле 'Вводная информация'",
+                checkInformationField(information), "Input introductory information exception");
     }
 
-    /**
-     * переход к аудитории, которая будет проходить тест
-     */
+    @Step("Нажать кнопку 'К выбору аудитории'")
     public void clickNext() {
         toPeopleGroup.click();
+        checkAndScreenShot("Проверяем активность кнопки 'К заданиям'", checkTaskClick(), "Passing to audience exception");
     }
 
-    /**
-     * ввод названия тестовой группы
-     *
-     * @param segmentName - имя тестовой группы
-     */
+    @Step("Ввести название сегмента")
     public void inputSegmentName(String segmentName) {
         segmentNameField.sendKeys(segmentName);
+        checkAndScreenShot("Проверяем правильность ввода в поле 'Название сегмента'",
+                checkSegmentNameField(segmentName), "Input segment name exception");
     }
 
-    /**
-     * переход к заданиям
-     */
+    @Step("Нажать кнопку 'К заданиям'")
     public void clickTasks() {
         taskClick.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Проверка и запуск'", checkAndRunButton(), "Passing to tasks exception");
     }
 
-    /**
-     * добавление задания тестерам
-     *
-     * @param task - задание тестерам
-     */
+    @Step("Ввести вопросы")
     public void inputTask(String task) {
         taskField.sendKeys(task);
+        checkAndScreenShot("Проверяем правильность ввода в поле 'Вопросы'", checkTaskField(task), "Input task exception");
     }
 
-    /**
-     * подтверждение добавления задания
-     */
+    @Step("Нажать кнопку 'Добавить'")
     public void clickAddTask() {
         addTask.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Удалить'", checkTaskDelete(), "Add task exception");
     }
 
-    /**
-     * проверка и запуск теста
-     */
+    @Step("Нажать кнопку 'Проверка и запуск'")
     public void clickCheckAndRun() {
         checkAndRunButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Запустить бесплатный тест'", checkRunFreeTestButton(), "Check and run exception");
     }
 
-    /**
-     * запуск бесплатного теста
-     */
+    @Step("Нажать кнопку 'Запустить бесплатный тест'")
     public void clickRunFreeTest() {
         runFreeTestButton.click();
+        checkAndScreenShot("Проверяем активность кнопки 'Создать еще один тест'", checkCreateOneMoreTest(), "Run free test exception");
     }
 
-    /**
-     * переход к списку тестов
-     */
-    public void clickGoToListTests() {
+    @Step("Нажать кнопку 'Вернуться к списку тестов'")
+    public void clickGoToListTests(String nameTest) {
         testListClick.click();
+        checkAndScreenShot("Проверяем наличие последнего теста", checkLastTestName(nameTest), "Test list exception");
     }
 
-    /**
-     * закрываем тест
-     */
+    @Step("Закрываем последний тест")
     public void closeTest() {
         checkLastTestName.click();
         deleteLastTest.click();
         yesDeleteButtonClick.click();
+        checkAndScreenShot("Проверяем закрытие последнего теста", checkDeleteLastTest("Завершен"), "Test delete exception");
     }
 
 
     /**
-     *
-     * @return
+     * проверка кнопки открытия PopUp
+     * @return возвращает true если найден объект
      */
     public boolean checkLoginButton() {
         return loginButton.isEnabled();
@@ -244,113 +210,113 @@ public class ClientOrderTest extends AbstractPage {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * проверка имени пользователя
+     * @param name корректное имя пользователя
+     * @return возвращает true если совпадает имя
      */
     public boolean checkTestNameField(String name) {
         return testNameField.getAttribute("value").equals(name);
     }
 
     /**
-     *
-     * @param site
-     * @return
+     * проверка сайта компании пользователя
+     * @param site корректный сайт компании
+     * @return возвращает true если совпадает сайт
      */
     public boolean checkSiteNameField(String site) {
         return siteNameField.getAttribute("value").equals(site);
     }
 
     /**
-     *
-     * @param information
-     * @return
+     * проверка введенной информации о тесте
+     * @param information корректная информация
+     * @return возвращает true если совпадает информация
      */
     public boolean checkInformationField(String information) {
         return informationField.getAttribute("value").equals(information);
     }
 
     /**
-     *
-     * @return
+     * проверка активности кнопки 'К выбору аудитории'
+     * @return возвращает true если найден объект
      */
     public boolean checkToPeopleGroup() {
         return toPeopleGroup.isEnabled();
     }
 
     /**
-     *
-     * @param segmentName
-     * @return
+     * проверки введенного имени сегмента
+     * @param segmentName корректное имя сегмента
+     * @return возвращает true если совпадает имя сегмента
      */
     public boolean checkSegmentNameField(String segmentName) {
         return segmentNameField.getAttribute("value").equals(segmentName);
     }
 
     /**
-     *
-     * @return
+     * проверка активности кнопки 'К задачам'
+     * @return возвращает true если найден объект
      */
     public boolean checkTaskClick() {
         return taskClick.isEnabled();
     }
 
     /**
-     *
-     * @param task
-     * @return
+     * проверка введенного задания
+     * @param task корректное задание
+     * @return возвращает true если совпадает задание
      */
     public boolean checkTaskField(String task) {
         return taskField.getAttribute("value").equals(task);
     }
 
     /**
-     *
-     * @return
+     * проверка активности кнопки 'Удалить задачу'
+     * @return возвращает true если найден объект
      */
     public boolean checkTaskDelete() {
         return checkTaskDelete.isEnabled();
     }
 
     /**
-     *
-     * @return
+     * проверка активности кнопки 'Проверка и запуск'
+     * @return возвращает true если найден объект
      */
     public boolean checkAndRunButton() {
         return checkAndRunButton.isEnabled();
     }
 
     /**
-     *
-     * @return
+     * проверка активности кнопки 'Запустить бесплатный тест'
+     * @return возвращает true если найден объект
      */
     public boolean checkRunFreeTestButton() {
         return runFreeTestButton.isEnabled();
     }
 
     /**
-     *
-     * @return
+     * проверка активности кнопки 'Создания еще одного теста'
+     * @return возвращает true если найден объект
      */
-    public boolean checkCheckCreateOneMoreTest() {
+    public boolean checkCreateOneMoreTest() {
         return checkCreateOneMoreTest.isEnabled();
     }
 
     /**
-     *
-     * @param nameTest
-     * @return
+     * проверка совпадения имени последенго теста в списке тестов с созданым тестом
+     * @param nameTest имя созданного теста
+     * @return возвращает true если совпадает имя последнего теста
      */
-    public boolean checkCheckLastTestName(String nameTest) {
+    public boolean checkLastTestName(String nameTest) {
         return checkLastTestName.getText().equals(nameTest);
     }
 
     /**
-     *
-     * @param text
-     * @return
+     * проверка завершения теста
+     * @param text надпись о завершении теста
+     * @return возвращает true если тест завершен
      */
-    public boolean checkCheckDeleteLastTest(String text) {
+    public boolean checkDeleteLastTest(String text) {
         return checkDeleteLastTest.getText().equals(text);
     }
 }

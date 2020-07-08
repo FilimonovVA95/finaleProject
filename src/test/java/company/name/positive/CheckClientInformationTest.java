@@ -1,16 +1,14 @@
 package company.name.positive;
 
-
 import company.name.DriverManager;
-import company.name.positive.steps.CheckClientInformationPositiveStep;
-import org.junit.jupiter.api.Test;
+import company.name.pages.ClientPersonalAccountPage;
+import org.testng.annotations.Test;
 
 /**
  * Класс теста проверки информации о клиенте
  * @see company.name.pages.ClientPersonalAccountPage
- * @author Филимонов Виктор
  */
-public class CheckClientInformation {
+public class CheckClientInformationTest {
 
     /**
      * @parem step ресурс, который тестируем
@@ -19,7 +17,7 @@ public class CheckClientInformation {
      * @param email адресс почты в настройках профиля для проверки данных поля
      * @param FIO ФИО пользователя для проверки данных поля
      */
-    private CheckClientInformationPositiveStep step = new CheckClientInformationPositiveStep();
+    private ClientPersonalAccountPage step = new ClientPersonalAccountPage();
     private String login = "yedake3020";
     private String password = "HJobXi";
     private String email = "yedake3020@mijumail.com";
@@ -30,13 +28,13 @@ public class CheckClientInformation {
      */
     @Test
     public void checkClientInfo() {
-        step.openTestStandStep();
-        step.logInStep(login, password);
-        step.profileInfoInStep();
-        step.checkLoginStep(login);
-        step.checkEmailStep(email);
-        step.checkFIOStep(FIO);
-        step.logOutStep();
+        step.openTestStand();
+        step.logIn(login, password);
+        step.profileInfoIn();
+        step.checkLogin(login);
+        step.checkEmail(email);
+        step.checkFIO(FIO);
+        step.logOut();
         DriverManager.quit();
     }
 

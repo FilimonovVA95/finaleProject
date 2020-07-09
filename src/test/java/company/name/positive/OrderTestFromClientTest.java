@@ -46,7 +46,6 @@ public class OrderTestFromClientTest {
         step.clickGoToListTests(nameTest);
         step.closeTest();
         step.logout();
-        DriverManager.quit();
     }
 
 }

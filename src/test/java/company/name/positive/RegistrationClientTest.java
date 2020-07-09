@@ -46,6 +46,5 @@ public class RegistrationClientTest {
         step.logInClient();
         step.logOut();
         OneOffMailPageThroughRequests.deleteEmail();
-        DriverManager.quit();
     }
 }

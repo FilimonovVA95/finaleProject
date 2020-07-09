@@ -35,7 +35,6 @@ public class CheckClientInformationTest {
         step.checkEmail(email);
         step.checkFIO(FIO);
         step.logOut();
-        DriverManager.quit();
     }
 
 }

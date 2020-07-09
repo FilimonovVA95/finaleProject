@@ -23,7 +23,6 @@ public class AuthenticationClientTest {
         step.inputPassword(password);
         step.clickAuthentication();
         step.logOut();
-        DriverManager.quit();
     }
 
 }

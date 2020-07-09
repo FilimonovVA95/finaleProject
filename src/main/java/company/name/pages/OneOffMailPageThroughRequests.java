@@ -78,7 +78,7 @@ public class OneOffMailPageThroughRequests {
 
                 if(!stringWithEmail.equals("Error: The list is empty.")) { break; }
 
-                System.out.println("Ожидание письма с паролем");
+                System.out.println("Waiting for a letter with a password");
 
                 try {
                     Thread.sleep(1000);

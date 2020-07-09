@@ -49,6 +49,5 @@ public class NegativeAuthenticationTest {
         step.inputPassword(correctPassword);
         step.clickAuthentication();
         step.logOut();
-        DriverManager.quit();
     }
 }
